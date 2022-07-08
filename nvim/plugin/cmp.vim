@@ -36,7 +36,6 @@ local luasnip = require("luasnip")
 local cmp = require'cmp'
   cmp.setup({
     snippet = {
-      -- REQUIRED - you must specify a snippet engine
       expand = function(args)
         --vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
         require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
@@ -78,9 +77,7 @@ local cmp = require'cmp'
     }),
 		  formatting = {
     format = function(entry, vim_item)
-      -- Kind icons
       vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-      -- Source
       vim_item.menu = ({
         buffer = "[Buffer]",
         nvim_lsp = "[LSP]",
@@ -135,7 +132,7 @@ local cmp = require'cmp'
     capabilities = capabilities
   }
 	
-	require'lspconfig'.quick_lint_js.setup{
+	require('lspconfig').quick_lint_js.setup{
 		capabilities = capabilities
 	}
 
