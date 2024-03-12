@@ -125,8 +125,10 @@ alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
 # alias
 alias cat="batcat"
 alias catn="/bin/cat"
-alias vim="nvim"
-alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
-export DENO_INSTALL="/home/jbalibrea/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
+#alias vim="nvim"
+alias vim='NVIM_APPNAME="nvim-kickstart" nvim'
+#export DENO_INSTALL="/home/jbalibrea/.deno"
+#export PATH="$DENO_INSTALL/bin:$PATH"
 
+# CONFIG DOTFILES
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
