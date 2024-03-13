@@ -145,6 +145,8 @@ return {
         tsserver = {},
         --
         eslint = {},
+
+        markdownlint = {},
         lua_ls = {
           -- cmd = {...},
           -- filetypes { ...},
@@ -201,6 +203,9 @@ return {
         'typescript-language-server',
         'prettier',
         'intelephense',
+
+        --markdown
+        'marksman',
 
         -- c/cpp stuff
         'clangd',
