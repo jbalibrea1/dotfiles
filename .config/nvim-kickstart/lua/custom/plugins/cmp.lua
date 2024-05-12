@@ -30,16 +30,27 @@ return {
       --    for various frameworks/libraries/etc. but you will have to
       --    set up the ones that are useful for you.
       'rafamadriz/friendly-snippets',
+
+      --icons autocomplete
+      'onsails/lspkind-nvim',
     },
     config = function()
       -- See `:help cmp`
       local cmp = require 'cmp'
       local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
       local luasnip = require 'luasnip'
+      local lspkind = require 'lspkind'
       require('luasnip.loaders.from_vscode').lazy_load()
       luasnip.config.setup {}
       cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
       cmp.setup {
+        formatting = {
+          format = lspkind.cmp_format {
+            mode = 'symbol',
+            max_width = 50,
+            symbol_map = { Copilot = '' },
+          },
+        },
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -87,9 +98,10 @@ return {
           end, { 'i', 's' }),
         },
         sources = {
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-          { name = 'path' },
+          { name = 'copilot', group_index = 2, priority = 100 },
+          { name = 'nvim_lsp', group_index = 2 },
+          { name = 'luasnip', group_index = 2 },
+          { name = 'path', group_index = 2 },
         },
       }
     end,

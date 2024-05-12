@@ -40,3 +40,37 @@ vim.keymap.set('i', 'jj', '<Esc>')
 
 vim.keymap.set('n', '<leader>x', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
+
+-- fast save
+-- vim.keymap.set('n', '<leader>w', ':w')
+vim.keymap.set('n', '<leader>w', '<cmd>w<cr><esc>', { desc = 'Save file' })
+-- buffers
+
+-- Alternar entre el buffer actual y el último buffer
+vim.api.nvim_set_keymap('n', '<leader>bb', '<C-^>', { noremap = true, silent = true })
+
+-- Ir al siguiente buffer
+vim.api.nvim_set_keymap('n', '<leader>bn', ':bn<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-l>', ':bn<CR>', { noremap = true })
+
+-- Ir al buffer anterior
+vim.api.nvim_set_keymap('n', '<leader>bp', ':bp<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-h>', ':bp<CR>', { noremap = true })
+
+-- Cerrar el buffer
+vim.api.nvim_set_keymap('n', '<leader>bd', ':bd<CR>', { noremap = true, silent = true })
+
+-- Eliminar el buffer
+vim.api.nvim_set_keymap('n', '<leader>bk', ':bd!<CR>', { noremap = true, silent = true })
+
+-- Listar buffers
+vim.api.nvim_set_keymap('n', '<leader>bl', ':ls<CR>', { noremap = true, silent = true })
+
+-- Listar y seleccionar buffer
+vim.api.nvim_set_keymap('n', '<leader>bg', ':ls<CR>:buffer<Space>', { noremap = true, silent = true })
+
+-- División horizontal con nuevo buffer
+vim.api.nvim_set_keymap('n', '<leader>bh', ':new<CR>', { noremap = true, silent = true })
+
+-- División vertical con nuevo buffer
+vim.api.nvim_set_keymap('n', '<leader>bv', ':vnew<CR>', { noremap = true, silent = true })

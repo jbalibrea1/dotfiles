@@ -35,25 +35,18 @@ return {
       -- You can configure highlights by doing something like
       vim.cmd.hi 'Comment gui=none'
     end,
-    -- config = function()
-    --   -- Load the colorscheme here
-    --   vim.cmd.colorscheme 'tokyonight-night'
-    --
-    --   -- You can configure highlights by doing something like
-    --   vim.cmd.hi 'Comment gui=none'
-    -- end,
   },
-  {
-    'rose-pine/neovim',
-    name = 'rose-pine',
-    config = function()
-      require('rose-pine').setup {
-        disable_background = false,
-      }
-
-      -- vim.cmd 'colorscheme rose-pine'
-
-      ColorMyPencils()
-    end,
-  },
+  -- {
+  --   'rose-pine/neovim',
+  --   name = 'rose-pine',
+  --   config = function()
+  --     require('rose-pine').setup {
+  --       disable_background = false,
+  --     }
+  --
+  --     -- vim.cmd 'colorscheme rose-pine'
+  --
+  --     ColorMyPencils()
+  --   end,
+  -- },
 }

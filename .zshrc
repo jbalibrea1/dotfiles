@@ -106,21 +106,18 @@ source $ZSH/oh-my-zsh.sh
 
 PATH=~/.console-ninja/.bin:$PATH
 
-# fnm
-export PATH="/home/jbalibrea/.local/share/fnm:$PATH"
-eval "`fnm env`"
-
-# exa 
-alias l='exa --icons'
+# eza 
+alias l='eza'
 alias la='l -a'
 alias ls='l --grid --color=auto'
 
 alias lln="/usr/bin/ls -l"
-alias ll='exa -lFg --icons'
+alias ll='eza --group --header --group-directories-first --long --git'
 alias lla='ll -a'
 
 alias lt='exa --tree --level=2'
 alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
+
 
 # alias
 alias cat="batcat"
@@ -132,3 +129,17 @@ alias vim='NVIM_APPNAME="nvim-kickstart" nvim'
 
 # CONFIG DOTFILES
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+# fnm
+export PATH="/home/jbalibrea/.local/share/fnm:$PATH"
+eval "`fnm env`"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# pnpm
+export PNPM_HOME="/home/jbalibrea/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
