@@ -108,16 +108,13 @@ PATH=~/.console-ninja/.bin:$PATH
 
 # eza 
 alias l='eza'
-alias la='l -a'
-alias ls='l --grid --color=auto'
+alias la='eza -a'
+alias ls='eza --grid --color=auto'
 
-alias lln="/usr/bin/ls -l"
 alias ll='eza --group --header --group-directories-first --long --git'
 alias lla='ll -a'
-
-alias lt='exa --tree --level=2'
-alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
-
+#normal ls
+alias lln="/usr/bin/ls -l"
 
 # alias
 alias cat="batcat"
