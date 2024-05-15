@@ -140,3 +140,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+#go bin
+export PATH=$PATH:/home/jbalibrea/go/bin/
