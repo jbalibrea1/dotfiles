@@ -10,7 +10,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('t', '<C-\\>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
@@ -18,59 +18,65 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Personal keymaps
-vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
+vim.keymap.set('n', '<leader>pv', vim.cmd.Ex, { desc = 'Open explorer file' })
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
-vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
-vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
+-- Move lines up and down
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move selected lines down' })
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move selected lines up' })
 
 -- greatest remap ever
-vim.keymap.set('x', '<leader>p', [["_dP]])
+vim.keymap.set('x', '<leader>p', [["_dP]], { desc = 'Paste deleted text before current selection in visual mode' })
 
 -- next greatest remap ever : asbjornHaland
 -- can delete and paste without save the delete
-vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
-vim.keymap.set('n', '<leader>Y', [["+Y]])
+-- copyio con ledader + y
+vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]], { desc = 'Copy selected part to clipboard' })
+vim.keymap.set('n', '<leader>Y', [["+Y]], { desc = 'Copy entire line to clipboad' })
 
-vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]])
+vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d"]], { desc = 'Delete selected text without affecting registers' })
 
 -- This is going to get me cancelled
 vim.keymap.set('i', '<C-c>', '<Esc>')
 vim.keymap.set('i', 'jj', '<Esc>')
 
-vim.keymap.set('n', '<leader>x', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
+vim.keymap.set('n', '<leader>x', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Replace word under cursor' })
+--format
+-- vim.keymap.set('n', '<leader>fa', vim.lsp.buf.format, { desc = 'Format document' })
+-- vim.keymap.set('n', '<leader>f', function()
+--   require('conform').format()
+-- end, { desc = 'Format document' })
 
 -- fast save
--- vim.keymap.set('n', '<leader>w', ':w')
 vim.keymap.set('n', '<leader>w', '<cmd>w<cr><esc>', { desc = 'Save file' })
--- buffers
 
--- Alternar entre el buffer actual y el último buffer
-vim.api.nvim_set_keymap('n', '<leader>bb', '<C-^>', { noremap = true, silent = true })
+-- MOVE BETWEEN BUFFERS
+-- Switch between the current buffer and the last buffer
+vim.api.nvim_set_keymap('n', '<leader>bb', '<C-^>', { noremap = true, silent = true, desc = 'Switch between the current buffer and the last buffer' })
 
--- Ir al siguiente buffer
-vim.api.nvim_set_keymap('n', '<leader>bn', ':bn<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-l>', ':bn<CR>', { noremap = true })
+-- Go to the nexvvt buffer
+vim.api.nvim_set_keymap('n', '<leader>bn', ':bn<CR>', { noremap = true, silent = true, desc = 'Go to the next buffer' })
+-- vim.api.nvim_set_keymap('n', '<C-l>', ':bn<CR>', { noremap = true, desc = 'Go to the next buffer' })
 
--- Ir al buffer anterior
-vim.api.nvim_set_keymap('n', '<leader>bp', ':bp<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-h>', ':bp<CR>', { noremap = true })
+-- Go to the previous buffer
+vim.api.nvim_set_keymap('n', '<leader>bp', ':bp<CR>', { noremap = true, silent = true, desc = 'Go to the previous buffer' })
+-- vim.api.nvim_set_keymap('n', '<C-h>', ':bp<CR>', { noremap = true, desc = 'Go to the previous buffer' })
 
--- Cerrar el buffer
-vim.api.nvim_set_keymap('n', '<leader>bd', ':bd<CR>', { noremap = true, silent = true })
+-- Close the current buffer
+vim.api.nvim_set_keymap('n', '<leader>bd', ':bd<CR>', { noremap = true, silent = true, desc = 'Close the current buffer' })
 
--- Eliminar el buffer
-vim.api.nvim_set_keymap('n', '<leader>bk', ':bd!<CR>', { noremap = true, silent = true })
+-- Close all buffers without save
+vim.api.nvim_set_keymap('n', '<leader>bk', ':bd!<CR>', { noremap = true, silent = true, desc = 'Close all buffers without save' })
 
--- Listar buffers
-vim.api.nvim_set_keymap('n', '<leader>bl', ':ls<CR>', { noremap = true, silent = true })
+-- Buffer list
+vim.api.nvim_set_keymap('n', '<leader>bl', ':ls<CR>', { noremap = true, silent = true, desc = 'Buffer list' })
 
--- Listar y seleccionar buffer
-vim.api.nvim_set_keymap('n', '<leader>bg', ':ls<CR>:buffer<Space>', { noremap = true, silent = true })
+-- List buffers and select one
+vim.api.nvim_set_keymap('n', '<leader>bg', ':ls<CR>:buffer<Space>', { noremap = true, silent = true, desc = 'List buffers and select one' })
 
--- División horizontal con nuevo buffer
-vim.api.nvim_set_keymap('n', '<leader>bh', ':new<CR>', { noremap = true, silent = true })
+-- Divide the window horizontally with a new buffer
+vim.api.nvim_set_keymap('n', '<leader>bh', ':new<CR>', { noremap = true, silent = true, desc = 'Divide the window horizontally with a new buffer' })
 
--- División vertical con nuevo buffer
-vim.api.nvim_set_keymap('n', '<leader>bv', ':vnew<CR>', { noremap = true, silent = true })
+-- Divide the window vertically with a new buffer
+vim.api.nvim_set_keymap('n', '<leader>bv', ':vnew<CR>', { noremap = true, silent = true, desc = 'Divide the window vertically with a new buffer' })

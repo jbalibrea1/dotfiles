@@ -113,6 +113,11 @@ return {
               callback = vim.lsp.buf.clear_references,
             })
           end
+          if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+            map('<leader>th', function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+            end, '[T]oggle Inlay [H]ints')
+          end
         end,
       })
 
@@ -132,6 +137,46 @@ return {
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      local function organize_imports()
+        local params = {
+          command = '_typescript.organizeImports',
+          arguments = { vim.api.nvim_buf_get_name(0) },
+          title = '',
+        }
+        vim.lsp.buf.execute_command(params)
+      end
+
+      -- Organize imports on save
+      -- vim.api.nvim_create_autocmd('BufWritePost', {
+      --   group = vim.api.nvim_create_augroup('TS_add_missing_imports', { clear = true }),
+      --   desc = 'TS_add_missing_imports',
+      --   pattern = { '*.ts', '*.tsx', '*.js', '*.jsx' },
+      --   callback = function()
+      --     vim.lsp.buf.code_action {
+      --       apply = true,
+      --       context = {
+      --         only = { 'source.organizeImports.ts' },
+      --         diagnostics = {},
+      --       },
+      --     }
+      --     vim.cmd 'write'
+      --   end,
+      -- })
+
+      -- Function to remove unused imports
+      function Run_imports_settings()
+        vim.lsp.buf.code_action {
+          apply = true,
+          context = {
+            only = { 'source.organizeImports.ts', 'source.removeUnused.ts' },
+            diagnostics = {},
+          },
+        }
+      end
+
+      -- Asigna la función a una combinación de teclas (por ejemplo, <leader>u)
+      vim.api.nvim_set_keymap('n', '<leader>ci', '<cmd>lua Run_imports_settings()<CR>', { noremap = true, silent = true, desc = 'Open imports settings' })
+
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -143,7 +188,14 @@ return {
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        tsserver = {},
+        tsserver = {
+          commands = {
+            OrganizeImports = {
+              organize_imports,
+              description = 'Organize Imports',
+            },
+          },
+        },
         --
         eslint = {},
 

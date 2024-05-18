@@ -16,6 +16,17 @@ return {
           end
           return 'make install_jsregexp'
         end)(),
+        dependencies = {
+          -- `friendly-snippets` contains a variety of premade snippets.
+          --    See the README about individual language/framework/plugin snippets:
+          --    https://github.com/rafamadriz/friendly-snippets
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
+        },
       },
       'saadparwaiz1/cmp_luasnip',
 
@@ -29,7 +40,7 @@ return {
       --    you can use this plugin to help you. It even has snippets
       --    for various frameworks/libraries/etc. but you will have to
       --    set up the ones that are useful for you.
-      'rafamadriz/friendly-snippets',
+      -- 'rafamadriz/friendly-snippets',
 
       --icons autocomplete
       'onsails/lspkind-nvim',
@@ -40,7 +51,7 @@ return {
       local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
       local luasnip = require 'luasnip'
       local lspkind = require 'lspkind'
-      require('luasnip.loaders.from_vscode').lazy_load()
+      -- require('luasnip.loaders.from_vscode').lazy_load()
       luasnip.config.setup {}
       cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
       cmp.setup {
@@ -66,8 +77,12 @@ return {
           format = lspkind.cmp_format {
             mode = 'symbol',
             max_width = 50,
+            ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+            show_labelDetails = true, -- show labelDetails in menu. Disabled by default
             symbol_map = { Copilot = '' },
           },
+          expandable_indicator = true,
+          fields = { 'abbr', 'kind', 'menu' },
         },
         snippet = {
           expand = function(args)
