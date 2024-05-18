@@ -106,6 +106,9 @@ source $ZSH/oh-my-zsh.sh
 
 PATH=~/.console-ninja/.bin:$PATH
 
+
+### ALIAS
+
 # eza 
 alias l='eza'
 alias la='eza -a'
@@ -113,14 +116,20 @@ alias ls='eza --grid --color=auto'
 
 alias ll='eza --group --header --group-directories-first --long --git'
 alias lla='ll -a'
-#normal ls
-alias lln="/usr/bin/ls -l"
 
-# alias
+alias llori="/usr/bin/ls -l"
+
+# cat
 alias cat="batcat"
-alias catn="/bin/cat"
-#alias vim="nvim"
+alias catori="/bin/cat"
+
+# vim -> nvim-kickstart
+# alias vim="nvim"
 alias vim='NVIM_APPNAME="nvim-kickstart" nvim'
+
+# kitty ssh
+alias s="kitten ssh"
+
 #export DENO_INSTALL="/home/jbalibrea/.deno"
 #export PATH="$DENO_INSTALL/bin:$PATH"
 
@@ -143,3 +152,4 @@ esac
 
 #go bin
 export PATH=$PATH:/home/jbalibrea/go/bin/
+export PATH="$PATH:/home/jbalibrea/.local/bin"
