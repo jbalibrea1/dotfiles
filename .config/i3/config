@@ -243,7 +243,8 @@ bindsym $mod+Shift+period exec systemctl suspend
 #focus_follows_mouse no
 
 exec --no-startup-id feh --bg-scale /home/jbalibrea/Pictures/57823931869c289d525b2dcfc199800d632eb8f3.jpeg
-#exec --no-startup-id picom -b --experimental-backends
+# exec --no-startup-id picom -b --experimental-backends
+exec --no-startup-id picom -b 
 ##  Screenshots in files
 bindsym Print exec --no-startup-id maim --format=png "/home/$USER/Pictures/screenshots/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-all.png"
 bindsym $mod+Print exec --no-startup-id maim --format=png --window $(xdotool getactivewindow) "/home/$USER/Pictures/screenshots/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-current.png"

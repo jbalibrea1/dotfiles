@@ -47,7 +47,8 @@ vim.keymap.set('n', '<leader>x', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 -- vim.keymap.set('n', '<leader>f', function()
 --   require('conform').format()
 -- end, { desc = 'Format document' })
-
+-- open themes
+vim.api.nvim_set_keymap('n', '<leader>tt', ':lua require("telescope.builtin").colorscheme()<CR>', { noremap = true, silent = true })
 -- fast save
 vim.keymap.set('n', '<leader>w', '<cmd>w<cr><esc>', { desc = 'Save file' })
 

@@ -1,16 +1,32 @@
-function ColorMyPencils(color)
-  color = color or 'rose-pine'
-  vim.cmd.colorscheme(color)
-
-  -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-end
-
 return {
+  -- create a theme?
+  -- 'rktjmp/lush.nvim',
+  'craftzdog/solarized-osaka.nvim',
+  { 'rose-pine/neovim', name = 'rose-pine' },
+  -- 'eldritch-theme/eldritch.nvim',
+  -- { 'jesseleite/nvim-noirbuddy', opts = { preset = 'miami-nights' }, dependencies = {
+  --   { 'tjdevries/colorbuddy.nvim' },
+  -- } },
+  'EdenEast/nightfox.nvim', -- carbonfox
   {
-    'folke/tokyonight.nvim',
+    'rebelot/kanagawa.nvim',
     lazy = false,
     priority = 1000, -- make sure to load this before all the other start plugins
+    init = function()
+      vim.cmd.colorscheme 'kanagawa-wave'
+      vim.cmd.hi 'Comment gui=none'
+    end,
+  },
+  -- 'gremble0/yellowbeans.nvim',
+  {
+
+    'folke/tokyonight.nvim',
+    -- lazy = false,
+    -- priority = 1001, -- make sure to load this before all the other start plugins
+    -- init = function()
+    --   vim.cmd.colorscheme 'tokyonight-night'
+    --   vim.cmd.hi 'Comment gui=none'
+    -- end,
     opts = {
       -- your configuration comes here
       -- or leave it empty to use the default settings
@@ -26,27 +42,9 @@ return {
         -- floats = 'dark', -- style for floating windows
       },
     },
-    config = function(_, opts)
-      require('tokyonight').setup(opts) -- calling setup is optional
-      -- vim.cmd [[colorscheme tokyonight-night]]
-      -- Load the colorscheme here
-      vim.cmd.colorscheme 'tokyonight-night'
-
-      -- You can configure highlights by doing something like
-      vim.cmd.hi 'Comment gui=none'
-    end,
   },
-  -- {
-  --   'rose-pine/neovim',
-  --   name = 'rose-pine',
-  --   config = function()
-  --     require('rose-pine').setup {
-  --       disable_background = false,
-  --     }
-  --
-  --     -- vim.cmd 'colorscheme rose-pine'
-  --
-  --     ColorMyPencils()
-  --   end,
-  -- },
+  -- 'Shatur/neovim-ayu',
+  'RRethy/base16-nvim',
+  { 'catppuccin/nvim', name = 'catppuccin' },
+  -- 'ricardoraposo/gruvbox-minor.nvim',
 }
