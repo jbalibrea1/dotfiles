@@ -112,9 +112,9 @@ PATH=~/.console-ninja/.bin:$PATH
 # eza 
 alias l='eza'
 alias la='eza -a'
-alias ls='eza --grid --color=auto'
+alias ls='eza --grid --color=auto --icons'
 
-alias ll='eza --group --header --group-directories-first --long --git'
+alias ll='eza --group --header --group-directories-first --long --git --icons'
 alias lla='ll -a'
 
 alias llori="/usr/bin/ls -l"
@@ -153,3 +153,5 @@ esac
 #go bin
 export PATH=$PATH:/home/jbalibrea/go/bin/
 export PATH="$PATH:/home/jbalibrea/.local/bin"
+
+export DISPLAY=:1
