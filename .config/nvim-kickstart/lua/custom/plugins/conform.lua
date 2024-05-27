@@ -26,6 +26,11 @@ return {
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
+        -- Rust and go
+        rust = { { 'rustfmt', 'rustfmt-nightly' } },
+        go = { { 'gofmt', 'gofumpt' } },
+
+        -- Js - React jsx and tsx
         typescriptreact = { 'prettier' },
         typescript = { 'prettier' },
         javascript = { { 'prettierd', 'prettier' } },

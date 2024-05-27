@@ -179,9 +179,21 @@ return {
 
       local servers = {
         -- clangd = {},
-        -- gopls = {},
+        gopls = {
+          settings = {
+            gopls = {
+              analyses = {
+                unusedparams = true,
+                shadow = true,
+              },
+              completeUnimported = true,
+              usePlaceholders = true,
+              staticcheck = true,
+            },
+          },
+        },
         -- pyright = {},
-        -- rust_analyzer = {},
+        rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -251,6 +263,12 @@ return {
         -- c/cpp stuff
         'clangd',
         'clang-format',
+
+        -- rust
+        'rust_analyzer',
+
+        --go stuff
+        'gopls',
 
         -- shell stuff
         'shfmt',
