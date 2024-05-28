@@ -124,8 +124,8 @@ alias cat="batcat"
 alias catori="/bin/cat"
 
 # vim -> nvim-kickstart
-# alias vim="nvim"
-alias vim='NVIM_APPNAME="nvim-kickstart" nvim'
+alias vim="nvim"
+# alias vim='NVIM_APPNAME="nvim-kickstart" nvim'
 
 # kitty ssh
 alias s="kitten ssh"
