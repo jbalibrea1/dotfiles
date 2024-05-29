@@ -1,3 +1,6 @@
+-- [[ Basic Keymaps ]]
+--  See `:help vim.keymap.set()`
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
@@ -12,6 +15,10 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<C-\\>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+-- Keybinds to make split navigation easier.
+--  Use CTRL+<hjkl> to switch between windows
+--
+--  See `:help wincmd` for a list of all window commands
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
@@ -26,12 +33,11 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move selected lines down' })
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move selected lines up' })
 
--- greatest remap ever
+-- Greatest remap ever
 vim.keymap.set('x', '<leader>p', [["_dP]], { desc = 'Paste deleted text before current selection in visual mode' })
 
--- next greatest remap ever : asbjornHaland
--- can delete and paste without save the delete
--- copyio con ledader + y
+-- Next greatest remap ever : asbjornHaland
+-- Can delete and paste without save the delete
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]], { desc = 'Copy selected part to clipboard' })
 vim.keymap.set('n', '<leader>Y', [["+Y]], { desc = 'Copy entire line to clipboad' })
 
@@ -42,21 +48,25 @@ vim.keymap.set('i', '<C-c>', '<Esc>')
 vim.keymap.set('i', 'jj', '<Esc>')
 
 vim.keymap.set('n', '<leader>x', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Replace word under cursor' })
+
 --format
+-- leader f -> conform
 -- vim.keymap.set('n', '<leader>fa', vim.lsp.buf.format, { desc = 'Format document' })
 -- vim.keymap.set('n', '<leader>f', function()
 --   require('conform').format()
 -- end, { desc = 'Format document' })
--- open themes
+
+-- Open themes available
 vim.api.nvim_set_keymap('n', '<leader>tt', ':lua require("telescope.builtin").colorscheme()<CR>', { noremap = true, silent = true })
--- fast save
+
+-- Fast save
 vim.keymap.set('n', '<leader>w', '<cmd>w<cr><esc>', { desc = 'Save file' })
 
 -- MOVE BETWEEN BUFFERS
 -- Switch between the current buffer and the last buffer
 vim.api.nvim_set_keymap('n', '<leader>bb', '<C-^>', { noremap = true, silent = true, desc = 'Switch between the current buffer and the last buffer' })
 
--- Go to the nexvvt buffer
+-- Go to the next buffer
 vim.api.nvim_set_keymap('n', '<leader>bn', ':bn<CR>', { noremap = true, silent = true, desc = 'Go to the next buffer' })
 -- vim.api.nvim_set_keymap('n', '<C-l>', ':bn<CR>', { noremap = true, desc = 'Go to the next buffer' })
 

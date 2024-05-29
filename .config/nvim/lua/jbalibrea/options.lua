@@ -1,12 +1,10 @@
--- [[ Basic Autocommands ]]
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
+
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -65,8 +63,6 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.colorcolumn = '80'
 --vim.opt.wrap = false
--- [[ Basic Keymaps ]]
----  See `:help vim.keymap.set()`
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
