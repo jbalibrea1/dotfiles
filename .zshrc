@@ -154,4 +154,4 @@ esac
 export PATH=$PATH:/home/jbalibrea/go/bin/
 export PATH="$PATH:/home/jbalibrea/.local/bin"
 
-export DISPLAY=:1
+# export DISPLAY=:1
