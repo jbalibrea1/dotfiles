@@ -271,6 +271,9 @@ exec --no-startup-id feh --bg-scale /home/jbalibrea/Pictures/57823931869c289d525
 # exec --no-startup-id picom -b --experimental-backends
 exec --no-startup-id picom -b 
 
+#Monitor 240 hz    
+exec --no-startup-id xrandr --output DP-0 --mode 1920x1080 --rate 239.76
+
 exec spotify
 exec google-chrome
 exec discord
