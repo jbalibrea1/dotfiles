@@ -126,7 +126,6 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 assign [class="Google Chrome"] 1
-# assign [class="kitty"] 2
 assign [class="discord"] 5
 assign [class="Spotify"] 6
 
@@ -267,12 +266,15 @@ bindsym Ctrl+Shift+Print exec --no-startup-id maim --format=png --select | xclip
 #focus_follows_mouse no
 
 #Wallpaper
-exec --no-startup-id feh --bg-scale /home/jbalibrea/Pictures/57823931869c289d525b2dcfc199800d632eb8f3.jpeg
+# exec --no-startup-id feh --bg-scale /home/jbalibrea/Pictures/57823931869c289d525b2dcfc199800d632eb8f3.jpeg
+exec --no-startup-id feh --bg-fill /home/jbalibrea/Pictures/woodcuts_11.jpg
 # exec --no-startup-id picom -b --experimental-backends
-exec --no-startup-id picom -b 
 
 #Monitor 240 hz    
 exec --no-startup-id xrandr --output DP-0 --mode 1920x1080 --rate 239.76
+
+#Picom
+# exec --no-startup-id picom -b
 
 exec spotify
 exec google-chrome
