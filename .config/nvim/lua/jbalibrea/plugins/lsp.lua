@@ -103,14 +103,25 @@ return {
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client.server_capabilities.documentHighlightProvider then
+            local highlight_augroup = vim.api.nvim_create_augroup('jbalibrea-lsp-highlight', { clear = false })
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
+              group = highlight_augroup,
               callback = vim.lsp.buf.document_highlight,
             })
 
             vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
               buffer = event.buf,
+              group = highlight_augroup,
               callback = vim.lsp.buf.clear_references,
+            })
+
+            vim.api.nvim_create_autocmd('LspDetach', {
+              group = vim.api.nvim_create_augroup('jbalibrea-lsp-highlight', { clear = true }),
+              callback = function(event2)
+                vim.lsp.buf.clear_references()
+                vim.api.nvim_clear_autocmds { group = 'jbalibrea-lsp-highlight', buffer = event2.buf }
+              end,
             })
           end
           if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
@@ -193,7 +204,7 @@ return {
           },
         },
         -- pyright = {},
-        rust_analyzer = {},
+        -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -226,13 +237,13 @@ return {
             },
           },
         },
-        intelephense = {
-          settings = {
-            intelephense = {
-              format = { braces = 'k&r' },
-            },
-          },
-        },
+        -- intelephense = {
+        --   settings = {
+        --     intelephense = {
+        --       format = { braces = 'k&r' },
+        --     },
+        --   },
+        -- },
       }
 
       -- Ensure the servers and tools above are installed
@@ -255,7 +266,8 @@ return {
         'html-lsp',
         'typescript-language-server',
         'prettier',
-        'intelephense',
+
+        -- 'intelephense',
 
         --markdown
         'marksman',
@@ -265,7 +277,7 @@ return {
         'clang-format',
 
         -- rust
-        'rust_analyzer',
+        -- 'rust_analyzer',
 
         --go stuff
         'gopls',

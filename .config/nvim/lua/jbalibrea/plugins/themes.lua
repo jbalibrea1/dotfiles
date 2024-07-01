@@ -21,12 +21,13 @@ return {
   {
 
     'folke/tokyonight.nvim',
-    lazy = false,
-    priority = 1001, -- make sure to load this before all the other start plugins
-    init = function()
-      vim.cmd.colorscheme 'tokyonight'
-      vim.cmd.hi 'Comment gui=none'
-    end,
+    -- lazy = false,
+    -- priority = 1001, -- make sure to load this before all the other start plugins
+    -- init = function()
+    --   vim.cmd.colorscheme 'tokyonight'
+    --   vim.cmd.hi 'Comment gui=none'
+    -- end,
+
     opts = {
       -- your configuration comes here
       -- or leave it empty to use the default settings
@@ -44,8 +45,59 @@ return {
     },
   },
   -- 'Shatur/neovim-ayu',
-  'RRethy/base16-nvim',
-  { 'catppuccin/nvim', name = 'catppuccin' },
+  -- 'RRethy/base16-nvim',
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    lazy = false,
+    priority = 1000, -- make sure to load this before all the other start plugins
+    init = function()
+      vim.cmd 'colorscheme catppuccin'
+    end,
+    opts = {
+      flavour = 'mocha', -- latte, frappe, macchiato, mocha
+      term_colors = true,
+      transparent_background = false,
+      no_italic = false,
+      no_bold = false,
+      styles = {
+        comments = { 'italic' },
+        conditionals = {},
+        loops = {},
+        functions = {},
+        keywords = {},
+        strings = {},
+        variables = {},
+        numbers = {},
+        booleans = {},
+        properties = {},
+        types = {},
+      },
+      -- color_overrides = {
+      --   mocha = {
+      --     base = '#000000',
+      --     mantle = '#000000',
+      --     crust = '#000000',
+      --   },
+      -- },
+      integrations = {
+        cmp = true,
+        gitsigns = true,
+        nvimtree = true,
+        treesitter = true,
+      },
+      highlight_overrides = {
+        mocha = function(C)
+          return {
+            TabLineSel = { bg = C.pink },
+            CmpBorder = { fg = C.surface2 },
+            Pmenu = { bg = C.none },
+            TelescopeBorder = { link = 'FloatBorder' },
+          }
+        end,
+      },
+    },
+  },
   'morhetz/gruvbox',
   -- 'ricardoraposo/gruvbox-minor.nvim',
 }

@@ -5,11 +5,14 @@ return {
       cmd = 'Copilot',
       event = 'InsertEnter',
       opts = {
-        suggestion = { enabled = false },
+        suggestion = { enabled = false, auto_trigger = false },
         panel = { enabled = false },
         filetypes = {
           markdown = true,
           help = true,
+          yaml = true,
+          gitcommit = true,
+          gitrebase = true,
         },
       },
     },

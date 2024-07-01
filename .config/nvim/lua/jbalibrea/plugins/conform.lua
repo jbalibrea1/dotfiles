@@ -20,14 +20,14 @@ return {
       },
       formatters_by_ft = {
         lua = { 'stylua' },
-        php = { 'intelephense' },
+        -- php = { 'intelephense' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
         -- Rust and go
-        rust = { { 'rustfmt', 'rustfmt-nightly' } },
+        -- rust = { { 'rustfmt', 'rustfmt-nightly' } },
         go = { { 'gofmt', 'gofumpt' } },
 
         -- Js - React jsx and tsx
