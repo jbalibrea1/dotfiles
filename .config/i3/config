@@ -9,7 +9,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 # mod1  alt - mod4 win
-set $mod Mod1
+set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -267,14 +267,14 @@ bindsym Ctrl+Shift+Print exec --no-startup-id maim --format=png --select | xclip
 
 #Wallpaper
 # exec --no-startup-id feh --bg-scale /home/jbalibrea/Pictures/57823931869c289d525b2dcfc199800d632eb8f3.jpeg
-exec --no-startup-id feh --bg-fill /home/jbalibrea/Pictures/woodcuts_11.jpg
+exec --no-startup-id feh --bg-fill /home/jbalibrea/Pictures/wallhaven-vmk29p.jpg   
 # exec --no-startup-id picom -b --experimental-backends
 
 #Monitor 240 hz    
 exec --no-startup-id xrandr --output DP-0 --mode 1920x1080 --rate 239.76
 
 #Picom
-# exec --no-startup-id picom -b
+exec --no-startup-id picom -b
 
 exec spotify
 exec google-chrome

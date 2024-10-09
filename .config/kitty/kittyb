@@ -1,20 +1,19 @@
 # font_family      Fira Code
 # font_family      Hack Nerd Font Mono
-# font_family      JetBrainsMono NF 
-# font_family        Iosevka Nerdfont         
+# font_family      JetBrainsMono NF Light
+# font_family        Iosevka Nerdfont_family         
+font_family        SauceCodePro Nerd Font
 # font_family      MesloLGL Nerd Font
-# font_family      family="Source Code Pro"
-font_family      family='JetBrainsMono Nerd Font' postscript_name=JetBrainsMonoNF-Regular
-bold_font        auto
+bold_font        no
 italic_font      auto
 bold_italic_font auto
-font_size 13
+font_size 16
 text_composition_strategy legacy
-disable_ligatures always
 
 enable_audio_bell no
 cursor_shape block
 shell_integration no-cursor
+disable_ligatures always
 map f1 new_window_with_cwd
 
 ## dark pastel, dark one nuanced
@@ -23,5 +22,3 @@ map f1 new_window_with_cwd
 # Catppuccin-Mocha
 include current-theme.conf
 # END_KITTY_THEME
-
-
