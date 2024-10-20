@@ -1,6 +1,6 @@
 add_newline = false
 # A minimal left prompt
-format = '$os$directory$character'
+format = """$directory$character"""
 palette = "catppuccin_mocha"
 # move the rest of the prompt to the right
 right_format = """$all"""
@@ -8,14 +8,6 @@ command_timeout = 1000
 
 # [directory.substitutions]
 # '~/tests/starship-custom' = 'work-project'
-[os]
-format = '[$symbol](bold white) '   
-disabled = false
-[os.symbols]
-Windows = ' '
-Arch = '󰣇'
-Ubuntu = ''
-Macos = '󰀵'
 
 [character] 
 success_symbol = '[➜](bold green)' 
@@ -27,13 +19,14 @@ commit_hash_length = 7
 tag_symbol = '🔖 '
 
 [nodejs]
-format = 'via [🤖 $version](bold green) '
+format = 'via [ $version](bold green) '
 
 [package]
 disabled = true
+symbol = "󰏗 "
 
 [git_branch]
-symbol = '🌱'
+symbol = " "
 # truncation_length = 4
 # truncation_symbol = ''
 # ignore_branches = ['master', 'main']
@@ -45,10 +38,11 @@ disabled = false
 style = 'bold blue'
 symbol = " "
 
-# [golang]
-# format = '[ ](bold cyan)'
 [golang]
-format = 'via [🏎💨 $version](bold cyan) '
+symbol = " "
+# [golang]
+# format = 'via [ $version](bold cyan) '
+
 [kubernetes]
 symbol = '☸ '
 disabled = true
@@ -59,7 +53,111 @@ contexts = [
 ]
 
 [docker_context]
-disabled = true
+symbol = " "
+#disabled = true
+
+[buf]
+symbol = " "
+
+[c]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[crystal]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[directory]
+read_only = " 󰌾"
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[fennel]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[kotlin]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[meson]
+symbol = "󰔷 "
+
+[nim]
+symbol = "󰆥 "
+
+[nix_shell]
+symbol = " "
+
+[ocaml]
+symbol = " "
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
+[pijul_channel]
+symbol = " "
+
+[python]
+symbol = " "
+
+[rlang]
+symbol = "󰟔 "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = "󱘗 "
+
+[scala]
+symbol = " "
+
+[swift]
+symbol = " "
+
+[zig]
+symbol = " "
+
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"

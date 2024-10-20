@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Obtener el volumen actual

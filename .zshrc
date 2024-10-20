@@ -153,3 +153,9 @@ esac
 #go bin
 export PATH=$PATH:/home/jbalibrea/go/bin/
 export PATH="$PATH:/home/jbalibrea/.local/bin"
+
+# starship
+eval "$(starship init zsh)"
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+
+export EDITOR=nvim
