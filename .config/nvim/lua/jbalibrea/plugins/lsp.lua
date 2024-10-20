@@ -148,14 +148,16 @@ return {
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-      local function organize_imports()
-        local params = {
-          command = '_typescript.organizeImports',
-          arguments = { vim.api.nvim_buf_get_name(0) },
-          title = '',
-        }
-        vim.lsp.buf.execute_command(params)
-      end
+      --
+      -- NOTE: OLD organize imports
+      -- local function organize_imports()
+      --   local params = {
+      --     command = '_typescript.organizeImports',
+      --     arguments = { vim.api.nvim_buf_get_name(0) },
+      --     title = '',
+      --   }
+      --   vim.lsp.buf.execute_command(params)
+      -- end
 
       -- Organize imports on save
       -- vim.api.nvim_create_autocmd('BufWritePost', {
@@ -175,19 +177,19 @@ return {
       -- })
 
       -- Function to remove unused imports
-      function Run_imports_settings()
-        vim.lsp.buf.code_action {
-          apply = true,
-          context = {
-            only = { 'source.organizeImports.ts', 'source.removeUnused.ts' },
-            diagnostics = {},
-          },
-        }
-      end
+      -- function Run_imports_settings()
+      --   vim.lsp.buf.code_action {
+      --     apply = true,
+      --     context = {
+      --       only = { 'source.organizeImports.ts', 'source.removeUnused.ts' },
+      --       diagnostics = {},
+      --     },
+      --   }
+      -- end
 
-      -- Asigna la función a una combinación de teclas (por ejemplo, <leader>u)
-      vim.api.nvim_set_keymap('n', '<leader>ci', '<cmd>lua Run_imports_settings()<CR>', { noremap = true, silent = true, desc = 'Open imports settings' })
-
+      -- -- Asigna la función a una combinación de teclas (por ejemplo, <leader>u)
+      -- vim.api.nvim_set_keymap('n', '<leader>ci', '<cmd>lua Run_imports_settings()<CR>', { noremap = true, silent = true, desc = 'Open imports settings' })
+      --
       local servers = {
         -- clangd = {},
         gopls = {
@@ -213,15 +215,67 @@ return {
         -- But for many setups, the LSP (`tsserver`) will work just fine
         ts_ls = {
           commands = {
-            OrganizeImports = {
-              organize_imports,
-              description = 'Organize Imports',
-            },
+            -- OrganizeImports = {
+            --   organize_imports,
+            --   description = 'Organize Imports',
+            -- },
           },
         },
-        --
+        vtsls = {
+          -- explicitly add default filetypes, so that we can extend
+          -- them in related extras
+          filetypes = {
+            'javascript',
+            'javascriptreact',
+            'javascript.jsx',
+            'typescript',
+            'typescriptreact',
+            'typescript.tsx',
+          },
+          settings = {
+            complete_function_calls = true,
+            vtsls = {
+              enableMoveToFileCodeAction = true,
+              autoUseWorkspaceTsdk = true,
+              experimental = {
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                },
+              },
+            },
+            typescript = {
+              updateImportsOnFileMove = { enabled = 'always' },
+              suggest = {
+                completeFunctionCalls = true,
+              },
+              inlayHints = {
+                enumMemberValues = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                parameterNames = { enabled = 'literals' },
+                parameterTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                variableTypes = { enabled = false },
+              },
+            },
+          },
+          on_attach = function(client, bufnr)
+            if client.server_capabilities.codeActionProvider then
+              -- Mapeo para Organize Imports
+              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ci', '', {
+                callback = function()
+                  vim.lsp.buf.execute_command {
+                    command = '_typescript.organizeImports',
+                    arguments = { vim.api.nvim_buf_get_name(0) },
+                  }
+                end,
+                desc = 'Organize Imports',
+                noremap = true,
+                silent = true,
+              })
+            end
+          end,
+        },
         eslint = {},
-
         markdownlint = {},
         lua_ls = {
           -- cmd = {...},

@@ -8,13 +8,22 @@ return {
   },
   cmd = 'Neotree',
   keys = {
-    { '\\', ':Neotree reveal position=right<CR>', { desc = 'NeoTree reveal' } },
+    -- { '\\', ':Neotree reveal position=right<CR>', { desc = 'NeoTree reveal' } },
+    { '\\', ':Neotree toggle<CR>', { desc = 'NeoTree toggle' } },
   },
   opts = {
+    window = {
+      position = 'right',
+    },
     filesystem = {
       window = {
         mappings = {
           ['\\'] = 'close_window',
+        },
+      },
+      filtered_items = {
+        always_show_by_pattern = {
+          '.env*',
         },
       },
     },
