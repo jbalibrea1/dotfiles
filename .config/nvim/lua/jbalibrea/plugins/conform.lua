@@ -31,13 +31,14 @@ return {
         -- is found.
         -- Rust and go
         -- rust = { { 'rustfmt', 'rustfmt-nightly' } },
-        go = { { 'gofmt', 'gofumpt' } },
+        go = { 'gofmt', 'gofumpt', stop_after_first = true },
 
+        markdown = { 'prettierd', 'prettier', stop_after_first = true },
         -- Js - React jsx and tsx
-        typescriptreact = { { 'prettierd', 'prettier' } },
-        typescript = { { 'prettierd', 'prettier' } },
-        javascript = { { 'prettierd', 'prettier' } },
-        javascriptreact = { { 'prettierd', 'prettier' } },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
