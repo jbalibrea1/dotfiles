@@ -1,4 +1,4 @@
-# ✨ jbalibrea dotfiles ✨
+# ✨ My Personal Dotfiles ✨
 
 ![nvim](./images/nvim.png)
 
@@ -6,18 +6,31 @@
 
 ![terminal](./images/terminal.png)
 
-- nvim config
-- tmux config
 - kitty config
-- i3
-- picom
+- zsh config
+- starship connfig
+- tmux config
+- nvim config
 
-## Neovim conf
+## Table of Contents
+
+### [Terminal Setup](#terminal-setup)
+
+### [Neovim Config](#neovim-config)
+
+## Terminal Setup
+
+- [Kitty](https://sw.kovidgoyal.net/kitty/) terminal emulator
+- [Zsh](https://www.zsh.org/) shell
+- [Starship](https://starship.rs/) prompt
+- [Tmux](https://github.com/tmux/tmux) terminal multiplexer
+
+## Neovim Config
 
 ### Requirements
 
 - [Neovim](https://neovim.io/) (Version 0.9 or Later)
-- [Nerd Font](https://www.nerdfonts.com/) - I use JetBrainsMono Nerd Font
+- [Nerd Font](https://www.nerdfonts.com/) - I use Iosevka Nerd Font
 - [Ripgrep](https://github.com/BurntSushi/ripgrep) - For Telescope Fuzzy Finder
 - Language Setup:
   - If want to write TypeScript/JavaScript, you need `node/npm`
@@ -25,6 +38,16 @@
   - etc.
 
 ### Install Neovim
+
+## Linux
+
+<details><summary>Arch Install steps</summary>
+
+```bash
+sudo pacman -S --noconfirm --needed gcc make git ripgrep fd unzip neovim
+```
+
+</details>
 
 <details><summary>Ubuntu and/or WSL (Windows Subsystem for Linux) Install Steps</summary>
 
@@ -35,6 +58,8 @@ sudo apt install make gcc ripgrep unzip git xclip neovim
 ```
 
 </details>
+
+## Windows
 
 <details><summary>Windows with gcc/make using chocolatey</summary>
 
@@ -55,9 +80,21 @@ choco install -y neovim git ripgrep wget fd unzip gzip mingw make
 
 </details>
 
+<details><summary>Windows with WSL (Windows Subsystem for Linux)</summary>
+
+```bash
+   wsl --install
+   wsl
+   sudo add-apt-repository ppa:neovim-ppa/unstable -y
+   sudo apt update
+   sudo apt install make gcc ripgrep unzip git xclip neovim
+```
+
+</details>
+
 ## How to save dotfiles in a git repository
 
-<details>
+<details><summary>Dotfiles config alias</summary>
 
 Recently I read about this amazing technique in an [Hacker News thread](https://news.ycombinator.com/item?id=11070797) on people's solutions to store their [dotfiles](https://en.wikipedia.org/wiki/Dot-file).
 
