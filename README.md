@@ -1,45 +1,42 @@
 # ✨ My Personal Dotfiles ✨
 
-![nvim](./images/nvim.png)
+![nvim](./images/nvim1.png)
 
-![nvim2](./images/nvimff.png)
+![nvim2](./images/nvim2.png)
+
+![nvim3](./images/nvim3.png)
 
 ![terminal](./images/terminal.png)
 
-- kitty config
-- zsh config
-- starship connfig
-- tmux config
-- nvim config
+## 🔧 Configs
 
-## Table of Contents
+- [Kitty](https://sw.kovidgoyal.net/kitty/) config
+- [Oh My Zsh](https://ohmyz.sh/) config
+- [Starship](https://starship.rs/) config
+- [Tmux](https://github.com/tmux/tmux) config
+- [Neovim](https://neovim.io/) config
 
-### [Terminal Setup](#terminal-setup)
+## 📚 Table of contents
 
-### [Neovim Config](#neovim-config)
+- [Neovim Config](#neovim-config)
+- [How to Save Dotfiles in a Git Repository](#how-to-save-dotfiles-in-a-git-repository)
+- [Installing Your Dotfiles Onto a New System](#installing-your-dotfiles-onto-a-new-system-or-migrate-to-this-setup)
 
-## Terminal Setup
-
-- [Kitty](https://sw.kovidgoyal.net/kitty/) terminal emulator
-- [Zsh](https://www.zsh.org/) shell
-- [Starship](https://starship.rs/) prompt
-- [Tmux](https://github.com/tmux/tmux) terminal multiplexer
-
-## Neovim Config
+## 📝 Neovim setup
 
 ### Requirements
 
 - [Neovim](https://neovim.io/) (Version 0.9 or Later)
-- [Nerd Font](https://www.nerdfonts.com/) - I use Iosevka Nerd Font
+- [Nerd Font](https://www.nerdfonts.com/) - I use _Iosevka Nerd Font_
 - [Ripgrep](https://github.com/BurntSushi/ripgrep) - For Telescope Fuzzy Finder
 - Language Setup:
   - If want to write TypeScript/JavaScript, you need `node/npm`
   - If want to write Golang, you will need `go`
   - etc.
 
-### Install Neovim
+## Install Neovim
 
-## Linux
+### Linux
 
 <details><summary>Arch Install steps</summary>
 
@@ -49,7 +46,7 @@ sudo pacman -S --noconfirm --needed gcc make git ripgrep fd unzip neovim
 
 </details>
 
-<details><summary>Ubuntu and/or WSL (Windows Subsystem for Linux) Install Steps</summary>
+<details><summary>Ubuntu Install Steps</summary>
 
 ```bash
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
@@ -59,7 +56,7 @@ sudo apt install make gcc ripgrep unzip git xclip neovim
 
 </details>
 
-## Windows
+### Windows
 
 <details><summary>Windows with gcc/make using chocolatey</summary>
 
@@ -92,7 +89,7 @@ choco install -y neovim git ripgrep wget fd unzip gzip mingw make
 
 </details>
 
-## How to save dotfiles in a git repository
+## 💾 How to save dotfiles in a git repository
 
 <details><summary>Dotfiles config alias</summary>
 

@@ -54,7 +54,7 @@ return {
     end,
     opts = {
       flavour = 'mocha',
-      transparent_background = false,
+      transparent_background = true,
       -- black mode
       -- color_overrides = {
       --   mocha = {
