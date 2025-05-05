@@ -6,7 +6,7 @@ return {
       {
         '<leader>f',
         function()
-          require('conform').format { async = true, lsp_fallback = true }
+          require('conform').format { async = true, lsp_format = 'fallback' }
         end,
         mode = '',
         desc = '[F]ormat buffer',
@@ -25,21 +25,32 @@ return {
         lua = { 'stylua' },
         -- php = { 'intelephense' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'isort', 'black' },
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
         -- Rust and go
         -- rust = { { 'rustfmt', 'rustfmt-nightly' } },
+
+        -- GO
         go = { 'gofmt', 'gofumpt', stop_after_first = true },
 
+        -- md
         markdown = { 'prettierd', 'prettier', stop_after_first = true },
-        -- Js - React jsx and tsx
-        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
-        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+
+        -- js, ts, jsx and tsx
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
         javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+
+        -- astro
         astro = { 'prettierd', 'prettier', 'astro', stop_after_first = true },
+      },
+      formatters = {
+        prettier = {
+          prepend_args = { '--single-quote', '--trailing-comma', 'none' },
+        },
       },
     },
   },

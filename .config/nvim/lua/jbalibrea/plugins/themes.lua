@@ -52,10 +52,18 @@ return {
     init = function()
       vim.cmd.colorscheme 'catppuccin'
     end,
-    -- opts = {
-    --   flavour = 'mocha',
-    --   transparent_background = false,
-    -- },
+    opts = {
+      flavour = 'mocha',
+      transparent_background = false,
+      -- black mode
+      -- color_overrides = {
+      --   mocha = {
+      --     base = '#000000',
+      --     mantle = '#000000',
+      --     crust = '#000000',
+      --   },
+      -- },
+    },
   },
 
   --
@@ -63,9 +71,11 @@ return {
   --
   {
     'sainnhe/sonokai',
+    -- priority = 1001, -- make sure to load this before all the other start plugins
+    -- lazy = false,
     -- init = function()
     --   vim.g.sonokai_enable_italic = true
-    --   -- vim.g.sonokai_style = 'shusia'
+    --   vim.g.sonokai_style = 'shusia'
     --   -- vim.g.sonokai_transparent_background = '0'
     --   vim.cmd.colorscheme 'sonokai'
     -- end,
@@ -84,13 +94,19 @@ return {
   -- grayscale - like the idea
   {
     'slugbyte/lackluster.nvim',
+    -- lazy = false,
+    -- priority = 1001,
     -- init = function()
-    -- vim.cmd.colorscheme 'lackluster'
-    -- vim.cmd.colorscheme 'lackluster-hack' -- my favorite
-    -- vim.cmd.colorscheme 'lackluster-night'
+    --   vim.cmd.colorscheme 'lackluster-hack' -- my favorite
     -- end,
   },
   {
     'polirritmico/monokai-nightasty.nvim',
+    -- lazy = false,
+    -- priority = 1001,
+    -- init = function()
+    --   vim.cmd.colorscheme 'monokai-nightasty'
+    --   vim.opt.background = 'dark'
+    -- end,
   },
 }
