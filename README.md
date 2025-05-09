@@ -1,12 +1,12 @@
 # ✨ My Personal Dotfiles ✨
 
-![nvim](./images/nvim1.png)
+![nvim](https://jbalibrea.dev/img/dotfiles/nvim1.png)
 
-![nvim2](./images/nvim2.png)
+![nvim2](https://jbalibrea.dev/img/dotfiles/nvim2.png)
 
-![nvim3](./images/nvim3.png)
+![nvim3](https://jbalibrea.dev/img/dotfiles/nvim3.png)
 
-![terminal](./images/terminal.png)
+![terminal](https://jbalibrea.dev/img/dotfiles/terminal.png)
 
 ## 🔧 Configs
 
