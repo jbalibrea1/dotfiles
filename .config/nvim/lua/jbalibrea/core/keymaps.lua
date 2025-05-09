@@ -54,7 +54,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d"]], { desc = 'Delete selected te
 vim.keymap.set('i', '<C-c>', '<Esc>')
 vim.keymap.set('i', 'jj', '<Esc>')
 
-vim.keymap.set('n', '<leader>x', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Replace word under cursor' })
+vim.keymap.set('n', '<leader>rx', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Replace word under cursor' })
 
 --format
 -- leader f -> conform
@@ -64,37 +64,65 @@ vim.keymap.set('n', '<leader>x', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 -- end, { desc = 'Format document' })
 
 -- Open themes available
-vim.api.nvim_set_keymap('n', '<leader>tt', ':lua require("telescope.builtin").colorscheme()<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>tt', ':lua require("telescope.builtin").colorscheme()<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>tt', function()
+  require('telescope.builtin').colorscheme { enable_preview = true }
+end, { desc = 'Select colorscheme' })
 
 -- Fast save
 vim.keymap.set('n', '<leader>w', '<cmd>w<cr><esc>', { desc = 'Save file' })
 
 -- MOVE BETWEEN BUFFERS
--- Switch between the current buffer and the last buffer
-vim.api.nvim_set_keymap('n', '<leader>bb', '<C-^>', { noremap = true, silent = true, desc = 'Switch between the current buffer and the last buffer' })
+vim.keymap.set('n', '<leader>bb', '<C-^>', {
+  desc = 'Switch between the current buffer and the last buffer',
+})
 
--- Go to the next buffer
-vim.api.nvim_set_keymap('n', '<leader>bn', ':bn<CR>', { noremap = true, silent = true, desc = 'Go to the next buffer' })
--- vim.api.nvim_set_keymap('n', '<C-l>', ':bn<CR>', { noremap = true, desc = 'Go to the next buffer' })
+vim.keymap.set('n', '<leader>bn', ':bn<CR>', {
+  desc = 'Go to the next buffer',
+})
+-- vim.keymap.set('n', '<C-l>', ':bn<CR>', { desc = 'Go to the next buffer' })
 
--- Go to the previous buffer
-vim.api.nvim_set_keymap('n', '<leader>bp', ':bp<CR>', { noremap = true, silent = true, desc = 'Go to the previous buffer' })
--- vim.api.nvim_set_keymap('n', '<C-h>', ':bp<CR>', { noremap = true, desc = 'Go to the previous buffer' })
+vim.keymap.set('n', '<leader>bp', ':bp<CR>', {
+  desc = 'Go to the previous buffer',
+})
+-- vim.keymap.set('n', '<C-h>', ':bp<CR>', { desc = 'Go to the previous buffer' })
 
--- Close the current buffer
-vim.api.nvim_set_keymap('n', '<leader>bd', ':bd<CR>', { noremap = true, silent = true, desc = 'Close the current buffer' })
+vim.keymap.set('n', '<leader>bd', ':bd<CR>', {
+  desc = 'Close the current buffer',
+})
 
--- Close all buffers without save
-vim.api.nvim_set_keymap('n', '<leader>bk', ':bd!<CR>', { noremap = true, silent = true, desc = 'Close all buffers without save' })
+vim.keymap.set('n', '<leader>bk', ':bd!<CR>', {
+  desc = 'Close all buffers without save',
+})
 
--- Buffer list
-vim.api.nvim_set_keymap('n', '<leader>bl', ':ls<CR>', { noremap = true, silent = true, desc = 'Buffer list' })
+vim.keymap.set('n', '<leader>bl', ':ls<CR>', {
+  desc = 'Buffer list',
+})
 
--- List buffers and select one
-vim.api.nvim_set_keymap('n', '<leader>bg', ':ls<CR>:buffer<Space>', { noremap = true, silent = true, desc = 'List buffers and select one' })
+vim.keymap.set('n', '<leader>bg', ':ls<CR>:buffer<Space>', {
+  desc = 'List buffers and select one',
+})
 
--- Divide the window horizontally with a new buffer
-vim.api.nvim_set_keymap('n', '<leader>bh', ':new<CR>', { noremap = true, silent = true, desc = 'Divide the window horizontally with a new buffer' })
+vim.keymap.set('n', '<leader>bh', ':new<CR>', {
+  desc = 'Divide the window horizontally with a new buffer',
+})
 
--- Divide the window vertically with a new buffer
-vim.api.nvim_set_keymap('n', '<leader>bv', ':vnew<CR>', { noremap = true, silent = true, desc = 'Divide the window vertically with a new buffer' })
+vim.keymap.set('n', '<leader>bv', ':vnew<CR>', {
+  desc = 'Divide the window vertically with a new buffer',
+})
+
+--  See `:help lua-guide-autocommands`
+-- [[ Basic Autocommands ]]
+--  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+
+-- Highlight when yanking (copying) text
+--  Try it with `yap` in normal mode
+--  See `:help vim.highlight.on_yank()`
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('jbalibrea-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
+

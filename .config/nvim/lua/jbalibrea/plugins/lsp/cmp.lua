@@ -27,7 +27,9 @@ return {
           {
             'rafamadriz/friendly-snippets',
             config = function()
-              require('luasnip').filetype_extend('typescript', { 'javascript' }) -- add js snippets to ts
+              local ls = require 'luasnip'
+              ls.filetype_extend('javascript', { 'jsdoc' })
+              ls.filetype_extend('typescript', { 'javascript', 'jsdoc' })
               require('luasnip.loaders.from_vscode').lazy_load()
             end,
           },
