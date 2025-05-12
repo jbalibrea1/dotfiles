@@ -10,12 +10,16 @@ return {
   keys = {
     -- { '\\', ':Neotree reveal position=right<CR>', { desc = 'NeoTree reveal' } },
     { '\\', ':Neotree toggle<CR>', { desc = 'NeoTree toggle' } },
+    -- { '\\', ':Neotree filesystem reveal right toggle<CR>', { desc = 'NeoTree toggle' } },
   },
   opts = {
     window = {
       position = 'right',
     },
     filesystem = {
+      follow_current_file = {
+        enabled = true,
+      },
       window = {
         mappings = {
           ['\\'] = 'close_window',

@@ -14,9 +14,8 @@
 --
 --]]
 
--- If u have nerd font installed, set this to true
-vim.g.have_nerd_font = true
--- [[ INITAL SETUP, BASIC OPTIONS, KEYMAPS, AND IMPORT LAZY]]
+-- [[ Initial setup ]]
+-- Global options, keymaps, autocmds, and lazy
 require 'jbalibrea.init'
 
 -- [[ Configure and install plugins ]]

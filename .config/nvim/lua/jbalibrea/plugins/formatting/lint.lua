@@ -6,13 +6,9 @@ return {
       local lint = require 'lint'
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
-        javascript = { 'eslint_d' },
-        typescript = { 'eslint_d' },
-        javascriptreact = { 'eslint_d' },
-        typescriptreact = { 'eslint_d' },
-        astro = { 'eslint_d' },
         python = { 'pylint' },
       }
+
       -- Create autocommand which carries out the actual linting
       -- on the specified events.
       local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
@@ -28,9 +24,9 @@ return {
         end,
       })
 
-      vim.keymap.set('n', '<leader>l', function()
-        lint.try_lint()
-      end, { desc = 'Trigger linting for current file' })
+      -- vim.keymap.set('n', '<leader>tl', function()
+      --   lint.try_lint()
+      -- end, { desc = 'Trigger linting for current file' })
     end,
   },
 }

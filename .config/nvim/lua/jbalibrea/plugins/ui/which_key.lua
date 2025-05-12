@@ -17,6 +17,7 @@ return {
   'folke/which-key.nvim',
   event = 'VimEnter', -- Sets the loading event to 'VimEnter'
   opts = {
+    preset = 'helix',
     -- delay between pressing a key and opening which-key (milliseconds)
     -- this setting is independent of vim.opt.timeoutlen
     delay = 0,
@@ -57,33 +58,36 @@ return {
       },
     },
     spec = {
-      { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
-      { '<leader>d', group = '[D]ocument' },
-      { '<leader>r', group = '[R]ename' },
-      { '<leader>s', group = '[S]earch' },
-      { '<leader>w', group = '[W]orkspace' },
-      { '<leader>b', group = '[B]uffers' },
-      { '<leader>t', group = '[T]oggle' },
-      { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+      {
+        mode = { 'n', 'v' },
+        { '<leader>c', group = 'code' },
+        { '<leader>s', group = 'search' },
+        { '<leader>f', group = 'file/find' },
+        { '<leader>u', group = 'ui', icon = { icon = '󰙵 ', color = 'cyan' } },
+        { '<leader>x', group = 'diagnostics/quickfix', icon = { icon = '󱖫 ', color = 'green' } },
+        { '<leader>g', group = 'git' },
+        { '<leader>gh', group = 'hunks' },
+        { '<leader><tab>', group = 'tabs' },
+        { 'g', group = 'goto' },
+        { 'z', group = 'fold' },
+        -- { "gs", group = "surround" },
+        {
+          '<leader>b',
+          group = 'buffer',
+          expand = function()
+            return require('which-key.extras').expand.buf()
+          end,
+        },
+      },
     },
   },
-  -- config = function() -- This is the function that runs, AFTER loading
-  --   require('which-key').setup()
-  --
-  --   -- Document existing key chains
-  --   require('which-key').register {
-  --     ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-  --     ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-  --     ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-  --     ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-  --     ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-  --     ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-  --     ['<leader>b'] = { name = '[B]uffers', _ = 'which_key_ignore' },
-  --     ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
-  --   }
-  --   -- visual mode
-  --   require('which-key').register({
-  --     ['<leader>h'] = { 'Git [H]unk' },
-  --   }, { mode = 'v' })
-  -- end,
+  keys = {
+    {
+      '<leader>?',
+      function()
+        require('which-key').show { global = false }
+      end,
+      desc = 'Buffer Keymaps (which-key)',
+    },
+  },
 }

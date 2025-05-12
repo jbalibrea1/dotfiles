@@ -1,3 +1,4 @@
+-- Enable mdx files like markdown
 vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
   pattern = { '*.mdx' },
   callback = function()

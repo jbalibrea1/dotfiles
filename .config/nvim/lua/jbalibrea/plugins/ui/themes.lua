@@ -44,12 +44,46 @@ return {
     name = 'catppuccin',
     lazy = false,
     priority = 1000,
-    config = function()
-      theme.set 'catppuccin'
-    end,
     opts = {
       flavour = 'mocha',
-      transparent_background = true,
+      transparent_background = false,
+      integrations = {
+        aerial = true,
+        alpha = true,
+        cmp = true,
+        dashboard = true,
+        flash = true,
+        fzf = true,
+        grug_far = true,
+        gitsigns = true,
+        headlines = true,
+        illuminate = true,
+        indent_blankline = { enabled = true },
+        leap = true,
+        lsp_trouble = true,
+        mason = true,
+        markdown = true,
+        mini = true,
+        native_lsp = {
+          enabled = true,
+          underlines = {
+            errors = { 'undercurl' },
+            hints = { 'undercurl' },
+            warnings = { 'undercurl' },
+            information = { 'undercurl' },
+          },
+        },
+        neotest = true,
+        neotree = true,
+        noice = true,
+        notify = true,
+        semantic_tokens = true,
+        snacks = true,
+        telescope = true,
+        treesitter = true,
+        treesitter_context = true,
+        which_key = true,
+      },
       -- black mode
       -- color_overrides = {
       --   mocha = {
@@ -59,6 +93,11 @@ return {
       --   },
       -- },
     },
+
+    config = function(_, opts)
+      require('catppuccin').setup(opts)
+      theme.set 'catppuccin'
+    end,
   },
 
   {

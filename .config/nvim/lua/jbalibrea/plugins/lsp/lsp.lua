@@ -1,3 +1,27 @@
+-- Brief Aside: **What is LSP?**
+--
+-- LSP is an acronym you've probably heard, but might not understand what it is.
+--
+-- LSP stands for Language Server Protocol. It's a protocol that helps editors
+-- and language tooling communicate in a standardized fashion.
+--
+-- In general, you have a "server" which is some tool built to understand a particular
+-- language (such as `gopls`, `lua_ls`, `rust_analyzer`, etc). These Language Servers
+-- (sometimes called LSP servers, but that's kind of like ATM Machine) are standalone
+-- processes that communicate with some "client" - in this case, Neovim!
+--
+-- LSP provides Neovim with features like:
+--  - Go to definition
+--  - Find references
+--  - Autocompletion
+--  - Symbol Search
+--  - and more!
+--
+-- Thus, Language Servers are external tools that must be installed separately from
+-- Neovim. This is where `mason` and related plugins come into play.
+--
+-- If you're wondering about lsp vs treesitter, you can check out the wonderfully
+-- and elegantly composed help section, `:help lsp-vs-treesitter`
 return {
   -- LSP Plugins
   {
@@ -19,19 +43,17 @@ return {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      'williamboman/mason.nvim',
+      { 'mason-org/mason.nvim', opts = {} },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      -- { 'j-hui/fidget.nvim', opts = {} },
-      -- transparent background for fidget.nvim
       {
         'j-hui/fidget.nvim',
         opts = {
           notification = {
             window = {
-              winblend = 0,
+              winblend = 0, -- transparent background for fidget.nvim
             },
           },
         },
@@ -44,32 +66,23 @@ return {
       -- 'nvim-java/nvim-java',
       'mfussenegger/nvim-jdtls',
     },
+    -- keybindings for LSP
+    keys = {
+      -- stylua: ignore start
+      { "K", function() vim.lsp.buf.hover() end, desc = "Hover Documentation" },
+      { "gK", function() vim.lsp.buf.signature_help() end, desc = "Signature Documentation" },
+      { "<leader>cr", function() vim.lsp.buf.rename() end, desc = "Rename" },
+      { "<leader>ca", function() vim.lsp.buf.code_action() end, desc = "Code Action", mode = { "n", "v" } },
+      { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
+      { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
+      { "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
+      { "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
+      { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
+      { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
+      { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+      -- stylua: ignore end
+    },
     config = function()
-      -- Brief Aside: **What is LSP?**
-      --
-      -- LSP is an acronym you've probably heard, but might not understand what it is.
-      --
-      -- LSP stands for Language Server Protocol. It's a protocol that helps editors
-      -- and language tooling communicate in a standardized fashion.
-      --
-      -- In general, you have a "server" which is some tool built to understand a particular
-      -- language (such as `gopls`, `lua_ls`, `rust_analyzer`, etc). These Language Servers
-      -- (sometimes called LSP servers, but that's kind of like ATM Machine) are standalone
-      -- processes that communicate with some "client" - in this case, Neovim!
-      --
-      -- LSP provides Neovim with features like:
-      --  - Go to definition
-      --  - Find references
-      --  - Autocompletion
-      --  - Symbol Search
-      --  - and more!
-      --
-      -- Thus, Language Servers are external tools that must be installed separately from
-      -- Neovim. This is where `mason` and related plugins come into play.
-      --
-      -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
-      -- and elegantly composed help section, `:help lsp-vs-treesitter`
-
       --  This function gets run when an LSP attaches to a particular buffer.
       --    That is to say, every time a new file is opened that is associated with
       --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
@@ -83,51 +96,60 @@ return {
           --
           -- In this case, we create a function that lets us more easily define mappings specific
           -- for LSP related items. It sets the mode, buffer and description for us each time.
-          local map = function(keys, func, desc, mode)
-            mode = mode or 'n'
-            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
-          end
+          -- local mapOR = function(keys, func, desc, mode)
+          --   mode = mode or 'n'
+          --   vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+          -- end
 
-          -- Jump to the definition of the word under your cursor.
-          --  This is where a variable was first declared, or where a function is defined, etc.
-          --  To jump back, press <C-t>.
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          -- local map = function(keys, func, desc, mode, opts)
+          --   mode = mode or 'n'
+          --   opts = opts or {}
+          --   vim.keymap.set(mode, keys, func, vim.tbl_deep_extend('force', { buffer = event.buf, desc = desc }, opts))
+          -- end
 
-          -- Find references for the word under your cursor.
-          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-
-          -- Jump to the implementation of the word under your cursor.
-          --  Useful when your language has ways of declaring types without an actual implementation.
-          map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-
-          -- Jump to the type of the word under your cursor.
-          --  Useful when you're not sure what type a variable is and you want to see
-          --  the definition of its *type*, not where it was *defined*.
-          map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-
-          -- Fuzzy find all the symbols in your current document.
-          --  Symbols are things like variables, functions, types, etc.
-          map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-
-          -- Fuzzy find all the symbols in your current workspace
-          --  Similar to document symbols, except searches over your whole project.
-          map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-
-          -- Rename the variable under your cursor
-          --  Most Language Servers support renaming across files, etc.
-          map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-
-          -- Execute a code action, usually your cursor needs to be on top of an error
-          -- or a suggestion from your LSP for this to activate.
-          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-
-          -- Opens a popup that displays documentation about the word under your cursor
-          --  See `:help K` for why this keymap
-          map('K', vim.lsp.buf.hover, 'Hover Documentation')
-
-          -- WARN: This is not Goto Definition, this is Goto Declaration.
-          --  For example, in C this would take you to the header
-          map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+          -- local builtins = require 'telescope.builtin'
+          -- -- Jump to the definition of the word under your cursor.
+          -- --  This is where a variable was first declared, or where a function is defined, etc.
+          -- --  To jump back, press <C-t>.
+          -- map('gd', builtins.lsp_definitions, '[G]oto [D]efinition')
+          -- map('gs', definition_split, '[G]oto Definition [S]plit')
+          --
+          -- -- Find references for the word under your cursor.
+          -- map('gr', builtins.lsp_references, '[G]oto [R]eferences')
+          --
+          -- -- Jump to the implementation of the word under your cursor.
+          -- --  Useful when your language has ways of declaring types without an actual implementation.
+          -- map('gI', builtins.lsp_implementations, '[G]oto [I]mplementation')
+          --
+          -- -- Jump to the type of the word under your cursor.
+          -- --  Useful when you're not sure what type a variable is and you want to see
+          -- --  the definition of its *type*, not where it was *defined*.
+          -- map('<leader>D', builtins.lsp_type_definitions, 'Type [D]efinition')
+          --
+          -- -- Fuzzy find all the symbols in your current document.
+          -- --  Symbols are things like variables, functions, types, etc.
+          -- map('<leader>ds', builtins.lsp_document_symbols, '[D]ocument [S]ymbols')
+          --
+          -- -- Fuzzy find all the symbols in your current workspace
+          -- --  Similar to document symbols, except searches over your whole project.
+          -- map('<leader>ws', builtins.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+          --
+          -- -- Rename the variable under your cursor
+          -- --  Most Language Servers support renaming across files, etc.
+          -- map('<leader>cr', vim.lsp.buf.rename, 'Rename')
+          --
+          -- -- Execute a code action, usually your cursor needs to be on top of an error
+          -- -- or a suggestion from your LSP for this to activate.
+          -- map('<leader>ca', vim.lsp.buf.code_action, 'Code Action', { 'n', 'v' })
+          --
+          -- -- Opens a popup that displays documentation about the word under your cursor
+          -- --  See `:help K` for why this keymap
+          -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
+          -- map('gK', vim.lsp.buf.signature_help, 'Signature Documentation')
+          --
+          -- -- WARN: This is not Goto Definition, this is Goto Declaration.
+          -- --  For example, in C this would take you to the header
+          -- map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
           ---@param client vim.lsp.Client
@@ -164,7 +186,7 @@ return {
             })
 
             vim.api.nvim_create_autocmd('LspDetach', {
-              group = vim.api.nvim_create_augroup('jbalibrea-lsp-highlight', { clear = true }),
+              group = vim.api.nvim_create_augroup('jbalibrea-lsp-detach', { clear = true }),
               callback = function(event2)
                 vim.lsp.buf.clear_references()
                 vim.api.nvim_clear_autocmds { group = 'jbalibrea-lsp-highlight', buffer = event2.buf }
@@ -176,42 +198,43 @@ return {
           -- code, if the language server you are using supports them
           --
           -- This may be unwanted, since they displace some of your code
-          if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-            map('<leader>th', function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-            end, '[T]oggle Inlay [H]ints')
-          end
+          -- now with snacks
+          -- if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+          --   map('<leader>tH', function()
+          --     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
+          --   end, '[T]oggle Inlay [H]ints')
+          -- end
+
+          -- Diagnostic Config
+          -- See :help vim.diagnostic.Opts
+          vim.diagnostic.config {
+            severity_sort = true,
+            float = { border = 'rounded', source = 'if_many' },
+            underline = { severity = vim.diagnostic.severity.ERROR },
+            signs = vim.g.have_nerd_font and {
+              text = {
+                [vim.diagnostic.severity.ERROR] = '󰅚 ',
+                [vim.diagnostic.severity.WARN] = '󰀪 ',
+                [vim.diagnostic.severity.INFO] = '󰋽 ',
+                [vim.diagnostic.severity.HINT] = '󰌶 ',
+              },
+            } or {},
+            virtual_text = {
+              source = 'if_many',
+              spacing = 2,
+              format = function(diagnostic)
+                local diagnostic_message = {
+                  [vim.diagnostic.severity.ERROR] = diagnostic.message,
+                  [vim.diagnostic.severity.WARN] = diagnostic.message,
+                  [vim.diagnostic.severity.INFO] = diagnostic.message,
+                  [vim.diagnostic.severity.HINT] = diagnostic.message,
+                }
+                return diagnostic_message[diagnostic.severity]
+              end,
+            },
+          }
         end,
       })
-
-      -- Diagnostic Config
-      -- See :help vim.diagnostic.Opts
-      vim.diagnostic.config {
-        severity_sort = true,
-        float = { border = 'rounded', source = 'if_many' },
-        underline = { severity = vim.diagnostic.severity.ERROR },
-        signs = vim.g.have_nerd_font and {
-          text = {
-            [vim.diagnostic.severity.ERROR] = '󰅚 ',
-            [vim.diagnostic.severity.WARN] = '󰀪 ',
-            [vim.diagnostic.severity.INFO] = '󰋽 ',
-            [vim.diagnostic.severity.HINT] = '󰌶 ',
-          },
-        } or {},
-        virtual_text = {
-          source = 'if_many',
-          spacing = 2,
-          format = function(diagnostic)
-            local diagnostic_message = {
-              [vim.diagnostic.severity.ERROR] = diagnostic.message,
-              [vim.diagnostic.severity.WARN] = diagnostic.message,
-              [vim.diagnostic.severity.INFO] = diagnostic.message,
-              [vim.diagnostic.severity.HINT] = diagnostic.message,
-            }
-            return diagnostic_message[diagnostic.severity]
-          end,
-        },
-      }
 
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP Specification.
@@ -230,6 +253,20 @@ return {
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       --
       local servers = {
+        lua_ls = {
+          -- cmd = {...},
+          -- filetypes { ...},
+          -- capabilities = {},
+          settings = {
+            Lua = {
+              completion = {
+                callSnippet = 'Replace',
+              },
+              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+              -- diagnostics = { disable = { 'missing-fields' } },
+            },
+          },
+        },
         -- clangd = {},
         gopls = {
           settings = {
@@ -252,59 +289,74 @@ return {
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        vtsls = {
-          -- explicitly add default filetypes, so that we can extend
-          -- them in related extras
-          filetypes = {
-            'javascript',
-            'javascriptreact',
-            'javascript.jsx',
-            'typescript',
-            'typescriptreact',
-            'typescript.tsx',
-          },
+        ts_ls = {
+          on_attach = function(client, bufnr)
+            if client.name == 'ts_ls' then
+              vim.keymap.set('n', '<leader>co', function()
+                vim.lsp.buf.code_action {
+                  context = {
+                    only = { 'source.organizeImports' },
+                    diagnostics = {},
+                  },
+                  apply = true,
+                }
+              end, { buffer = bufnr, desc = 'Organize Imports' })
+            end
+          end,
           settings = {
-            complete_function_calls = true,
-            vtsls = {
-              enableMoveToFileCodeAction = true,
-              autoUseWorkspaceTsdk = true,
-              experimental = {
-                completion = {
-                  enableServerSideFuzzyMatch = true,
-                },
-              },
-            },
             typescript = {
-              updateImportsOnFileMove = { enabled = 'always' },
-              suggest = {
-                completeFunctionCalls = true,
-              },
               inlayHints = {
-                enumMemberValues = { enabled = true },
-                functionLikeReturnTypes = { enabled = true },
-                parameterNames = { enabled = 'literals' },
-                parameterTypes = { enabled = true },
-                propertyDeclarationTypes = { enabled = true },
-                variableTypes = { enabled = true }, -- before false
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
               },
             },
           },
         },
+        -- vtsls = {
+        --   -- explicitly add default filetypes, so that we can extend
+        --   -- them in related extras
+        --   filetypes = {
+        --     'javascript',
+        --     'javascriptreact',
+        --     'javascript.jsx',
+        --     'typescript',
+        --     'typescriptreact',
+        --     'typescript.tsx',
+        --   },
+        --   settings = {
+        --     complete_function_calls = true,
+        --     vtsls = {
+        --       enableMoveToFileCodeAction = true,
+        --       autoUseWorkspaceTsdk = true,
+        --       experimental = {
+        --         completion = {
+        --           enableServerSideFuzzyMatch = true,
+        --         },
+        --       },
+        --     },
+        --     typescript = {
+        --       updateImportsOnFileMove = { enabled = 'always' },
+        --       suggest = {
+        --         completeFunctionCalls = true,
+        --       },
+        --       inlayHints = {
+        --         enumMemberValues = { enabled = true },
+        --         functionLikeReturnTypes = { enabled = true },
+        --         parameterNames = { enabled = 'literals' },
+        --         parameterTypes = { enabled = true },
+        --         propertyDeclarationTypes = { enabled = true },
+        --         variableTypes = { enabled = true }, -- before false
+        --       },
+        --     },
+        --   },
+        -- },
         markdownlint = {},
-        lua_ls = {
-          -- cmd = {...},
-          -- filetypes { ...},
-          -- capabilities = {},
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
-            },
-          },
-        },
         -- JAVA
         jdtls = {
           -- cmd = { 'jdtls' },
@@ -331,14 +383,14 @@ return {
             },
           },
         },
+        eslint = {
+          settings = {
+            -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
+            workingDirectories = { mode = 'auto' },
+          },
+        },
       }
 
-      -- Ensure the servers and tools above are installed
-      --  To check the current status of installed tools and/or manually install
-      --  other tools, you can run
-      --    :Mason
-      --
-      --  You can press `g?` for help in this menu
       require('mason').setup()
 
       -- You can add other tools here that you want Mason to install
@@ -349,10 +401,10 @@ return {
         'lua-language-server', -- lua language server
 
         'astro-language-server', -- astro language server
-        -- 'typescript-language-server',
-        'vtsls', -- js/ts language server
+        -- 'vtsls', -- js/ts language server  -- 'typescript-language-server',
+        'ts_ls',
         'prettier', -- prettier formatter
-        -- 'eslint_d', -- linter for js/ts
+        'eslint', -- eslint language server
 
         'jdtls', -- java language server
 
@@ -364,7 +416,6 @@ return {
         'isort', -- python formatter
         'black', -- python formatter
 
-        -- rust
         -- 'rust_analyzer',
 
         'gopls', -- go language server

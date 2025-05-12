@@ -5,9 +5,7 @@ return {
     version = '1.*',
     dependencies = {
       -- Snippet Engine
-      {
-        'giuxtaposition/blink-cmp-copilot',
-      },
+      'giuxtaposition/blink-cmp-copilot',
       {
         'L3MON4D3/LuaSnip',
         version = '2.*',
