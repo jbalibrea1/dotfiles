@@ -5,6 +5,16 @@ return {
   init = function()
     vim.g.mkdp_filetypes = { 'markdown' }
   end,
+  keys = {
+    {
+      '<leader>mp',
+      function()
+        vim.cmd.MarkdownPreviewToggle()
+      end,
+      mode = 'n',
+      desc = 'Markdown Preview',
+    },
+  },
   ft = { 'markdown' },
   -- config = function()
   --   vim.g.mkdp_browser = 'Brave Browser'

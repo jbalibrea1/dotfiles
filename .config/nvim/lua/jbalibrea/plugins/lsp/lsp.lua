@@ -29,16 +29,19 @@ return {
     -- used for completion, annotations and signatures of Neovim apis
     'folke/lazydev.nvim',
     ft = 'lua',
+    cmd = 'LazyDev',
     opts = {
       library = {
         -- Load luvit types when the `vim.uv` word is found
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+        { path = 'snacks.nvim', words = { 'Snacks' } },
       },
     },
   },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
+    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
@@ -64,7 +67,7 @@ return {
 
       -- java
       -- 'nvim-java/nvim-java',
-      'mfussenegger/nvim-jdtls',
+      -- 'mfussenegger/nvim-jdtls',
     },
     -- keybindings for LSP
     keys = {
@@ -90,6 +93,7 @@ return {
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('jbalibrea-lsp-attach', { clear = true }),
         callback = function(event)
+          -- NOTE: Remove unused binds?
           -- NOTE: Remember that lua is a real programming language, and as such it is possible
           -- to define small helper and utility functions so you don't have to repeat yourself
           -- many times.
@@ -171,8 +175,12 @@ return {
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
+          if
+            client
+            and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf)
+          then
             local highlight_augroup = vim.api.nvim_create_augroup('jbalibrea-lsp-highlight', { clear = false })
+
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
               group = highlight_augroup,
@@ -193,7 +201,6 @@ return {
               end,
             })
           end
-
           -- The following code creates a keymap to toggle inlay hints in your
           -- code, if the language server you are using supports them
           --
@@ -318,71 +325,6 @@ return {
             },
           },
         },
-        -- vtsls = {
-        --   -- explicitly add default filetypes, so that we can extend
-        --   -- them in related extras
-        --   filetypes = {
-        --     'javascript',
-        --     'javascriptreact',
-        --     'javascript.jsx',
-        --     'typescript',
-        --     'typescriptreact',
-        --     'typescript.tsx',
-        --   },
-        --   settings = {
-        --     complete_function_calls = true,
-        --     vtsls = {
-        --       enableMoveToFileCodeAction = true,
-        --       autoUseWorkspaceTsdk = true,
-        --       experimental = {
-        --         completion = {
-        --           enableServerSideFuzzyMatch = true,
-        --         },
-        --       },
-        --     },
-        --     typescript = {
-        --       updateImportsOnFileMove = { enabled = 'always' },
-        --       suggest = {
-        --         completeFunctionCalls = true,
-        --       },
-        --       inlayHints = {
-        --         enumMemberValues = { enabled = true },
-        --         functionLikeReturnTypes = { enabled = true },
-        --         parameterNames = { enabled = 'literals' },
-        --         parameterTypes = { enabled = true },
-        --         propertyDeclarationTypes = { enabled = true },
-        --         variableTypes = { enabled = true }, -- before false
-        --       },
-        --     },
-        --   },
-        -- },
-        markdownlint = {},
-        -- JAVA
-        jdtls = {
-          -- cmd = { 'jdtls' },
-          cmd = {
-            '/home/jbalibrea/.local/share/nvim/mason/bin/jdtls',
-            '-configuration',
-            '/home/jbalibrea/.cache/jdtls/config',
-            '-data',
-            '/home/jbalibrea/.cache/jdtls/workspace',
-            ('--jvm-arg=-javaagent:%s'):format(vim.fn.expand '$HOME/.local/share/nvim/mason/packages/jdtls/lombok.jar'),
-          },
-          root_dir = require('lspconfig').util.root_pattern('pom.xml', 'build.gradle', '.git'),
-          init_options = {
-            bundles = {},
-          },
-          settings = {
-            java = {
-              format = {
-                enabled = true,
-                settings = {
-                  url = 'https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml',
-                },
-              },
-            },
-          },
-        },
         eslint = {
           settings = {
             -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
@@ -405,18 +347,21 @@ return {
         'ts_ls',
         'prettier', -- prettier formatter
         'eslint', -- eslint language server
+        'tailwindcss-language-server', -- tailwind language server
 
         'jdtls', -- java language server
 
         'marksman', -- markdown language server
+        'markdownlint-cli2',
+        'markdown-toc',
 
         'clangd', -- c/c++ language server
         'clang-format', -- c/c++ formatter
 
-        'isort', -- python formatter
-        'black', -- python formatter
+        -- 'isort', -- python formatter
+        -- 'black', -- python formatter
 
-        -- 'rust_analyzer',
+        'rust_analyzer',
 
         'gopls', -- go language server
 
@@ -424,8 +369,8 @@ return {
         'shfmt',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
       require('mason-lspconfig').setup {
+        automatic_enable = true,
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
         handlers = {

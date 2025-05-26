@@ -1,5 +1,7 @@
+---@diagnostic disable: missing-fields
 return {
   'windwp/nvim-ts-autotag',
+  event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
   config = function()
     require('nvim-ts-autotag').setup {
       opts = {

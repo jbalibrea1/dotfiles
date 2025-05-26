@@ -10,11 +10,27 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
 return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre', 'VeryLazy' },
+    lazy = vim.fn.argc(-1) == 0,
     build = ':TSUpdate',
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'vim', 'vimdoc', 'go', 'javascript', 'typescript' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'vim',
+        'vimdoc',
+        'go',
+        'javascript',
+        'typescript',
+        'tsx',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -35,7 +51,7 @@ return {
   },
   {
     'nvim-treesitter/nvim-treesitter-context',
-    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
+    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre', 'VeryLazy' },
     opts = function()
       local tsc = require 'treesitter-context'
       Snacks.toggle({

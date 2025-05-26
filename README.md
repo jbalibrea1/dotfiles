@@ -8,26 +8,38 @@
 
 ![terminal](https://jbalibrea.dev/img/dotfiles/terminal.png)
 
+## 📚 Table of contents
+
+<!--toc:start-->
+
+- [✨ My Personal Dotfiles ✨](#my-personal-dotfiles)
+  - [📚 Table of contents](#📚-table-of-contents)
+  - [🔧 Configs](#🔧-configs)
+  - [📝 Neovim setup](#📝-neovim-setup)
+    - [Requirements](#requirements)
+  - [Install Neovim](#install-neovim)
+    - [Linux](#linux)
+    - [Windows](#windows)
+  - [💾 How to save dotfiles in a git repository](#💾-how-to-save-dotfiles-in-a-git-repository)
+  - [Starting from scratch](#starting-from-scratch) - [related material](#related-material)
+  - [Installing your dotfiles onto a new system (or migrate to this setup)](#installing-your-dotfiles-onto-a-new-system-or-migrate-to-this-setup)
+  <!--toc:end-->
+
 ## 🔧 Configs
 
 - [Kitty](https://sw.kovidgoyal.net/kitty/) config
+- [WezTerm](https://wezterm.org) config
 - [Oh My Zsh](https://ohmyz.sh/) config
 - [Starship](https://starship.rs/) config
 - [Tmux](https://github.com/tmux/tmux) config
 - [Neovim](https://neovim.io/) config
-
-## 📚 Table of contents
-
-- [Neovim Config](#neovim-config)
-- [How to Save Dotfiles in a Git Repository](#how-to-save-dotfiles-in-a-git-repository)
-- [Installing Your Dotfiles Onto a New System](#installing-your-dotfiles-onto-a-new-system-or-migrate-to-this-setup)
 
 ## 📝 Neovim setup
 
 ### Requirements
 
 - [Neovim](https://neovim.io/) (Version 0.9 or Later)
-- [Nerd Font](https://www.nerdfonts.com/) - I use _Iosevka Nerd Font_
+- [Nerd Font](https://www.nerdfonts.com/) - I change fonts often, but I usually use _Iosevka, Fira Code, JetBrains Mono..._
 - [Ripgrep](https://github.com/BurntSushi/ripgrep) - For Telescope Fuzzy Finder
 - Language Setup:
   - If want to write TypeScript/JavaScript, you need `node/npm`
@@ -118,7 +130,7 @@ echo "alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'" 
 - We set a flag - local to the repository - to hide files we are not explicitly tracking yet. This is so that when you type `config status` and other commands later, files you are not interested in tracking will not show up as `untracked`.
 - Also you can add the alias definition by hand to your `.bashrc` or use the the fourth line provided for convenience.
 
-###### related material
+### related material
 
 After you've executed the setup any file within the `$HOME` folder can be versioned with normal commands, replacing `git` with your newly created `config` alias, like:
 

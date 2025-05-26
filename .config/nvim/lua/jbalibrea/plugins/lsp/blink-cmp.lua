@@ -1,13 +1,15 @@
 return {
   { -- Autocompletion
     'saghen/blink.cmp',
-    event = 'VimEnter',
+    event = 'InsertEnter',
     version = '1.*',
+    -- Add another sources from the list below to the `sources` table
+    opts_extend = { 'sources.default' },
     dependencies = {
       -- Snippet Engine
-      'giuxtaposition/blink-cmp-copilot',
       {
         'L3MON4D3/LuaSnip',
+        lazy = true,
         version = '2.*',
         build = (function()
           -- Build Step is needed for regex support in snippets.
@@ -80,15 +82,9 @@ return {
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev', 'copilot' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
-          copilot = {
-            name = 'copilot',
-            module = 'blink-cmp-copilot',
-            score_offset = 100,
-            async = true,
-          },
         },
       },
 

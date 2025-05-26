@@ -3,7 +3,7 @@ local theme = require 'jbalibrea.core.theme'
 return {
   {
     'rebelot/kanagawa.nvim',
-    lazy = false,
+    lazy = true,
     priority = 1000,
   },
 
@@ -11,25 +11,27 @@ return {
     'folke/tokyonight.nvim',
     priority = 1000,
     lazy = false,
-    -- init = function()
-    --   theme.set 'tokyonight'
-    --   vim.cmd.hi 'Comment gui=none'
-    -- end,
     opts = {
-      style = 'night',
-      transparent = false,
+      style = 'moon',
+      transparent = true,
       styles = {
         comments = { italic = true },
         keywords = { italic = true },
+        sidebars = 'transparent',
+        floats = 'transparent',
       },
     },
+    config = function(_, opts)
+      require('tokyonight').setup(opts)
+      theme.set 'tokyonight'
+    end,
   },
 
   {
     'rose-pine/neovim',
     name = 'rose-pine',
     priority = 1000,
-    lazy = false,
+    lazy = true,
     opts = {
       disable_background = true,
       styles = {
@@ -37,16 +39,21 @@ return {
         transparency = true,
       },
     },
+
+    -- config = function(_, opts)
+    --   require('rose-pine').setup(opts)
+    --   theme.set 'rose-pine'
+    -- end,
   },
 
   {
     'catppuccin/nvim',
     name = 'catppuccin',
-    lazy = false,
+    lazy = true,
     priority = 1000,
     opts = {
       flavour = 'mocha',
-      transparent_background = false,
+      transparent_background = true,
       integrations = {
         aerial = true,
         alpha = true,
@@ -93,41 +100,15 @@ return {
       --   },
       -- },
     },
-
-    config = function(_, opts)
-      require('catppuccin').setup(opts)
-      theme.set 'catppuccin'
-    end,
-  },
-
-  {
-    'sainnhe/sonokai',
-    priority = 1000,
-    lazy = false,
-    init = function()
-      vim.g.sonokai_enable_italic = true
-      vim.g.sonokai_style = 'shusia'
-      -- vim.g.sonokai_transparent_background = '0'
-      -- theme.set 'sonokai'
-    end,
+    -- config = function(_, opts)
+    --   require('catppuccin').setup(opts)
+    --   theme.set 'catppuccin'
+    -- end,
   },
 
   {
     'slugbyte/lackluster.nvim',
-    lazy = false,
+    lazy = true,
     priority = 1000,
-    -- init = function()
-    --   vim.cmd.colorscheme 'lackluster-hack' -- my favorite
-    -- end,
-  },
-
-  {
-    'polirritmico/monokai-nightasty.nvim',
-    lazy = false,
-    priority = 1000,
-    -- init = function()
-    --   theme.set 'monokai-nightasty'
-    --   vim.opt.background = 'dark'
-    -- end,
   },
 }

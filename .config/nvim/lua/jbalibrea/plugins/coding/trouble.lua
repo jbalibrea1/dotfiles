@@ -1,5 +1,7 @@
+---@diagnostic disable: missing-parameter, missing-fields
 return {
   'folke/trouble.nvim',
+  event = 'VeryLazy',
   cmd = { 'Trouble' },
   opts = {
     modes = {

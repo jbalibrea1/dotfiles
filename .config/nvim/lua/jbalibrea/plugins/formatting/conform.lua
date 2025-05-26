@@ -6,12 +6,12 @@ return {
     lazy = false,
     keys = {
       {
-        '<leader>bf',
+        '<leader>cf',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
         mode = '',
-        desc = '[B]uffer [F]ormat',
+        desc = 'Format',
       },
     },
     opts = {
@@ -25,7 +25,7 @@ return {
           return nil
         else
           return {
-            timeout_ms = 500,
+            timeout_ms = 1500,
             lsp_format = 'fallback',
           }
         end
@@ -35,31 +35,25 @@ return {
       },
       formatters_by_ft = {
         lua = { 'stylua' },
-        -- php = { 'intelephense' },
         -- Conform can also run multiple formatters sequentially
         python = { 'isort', 'black' },
-
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettier", "prettierd", stop_after_first = true },
-
-        -- Rust and go
         -- rust = { { 'rustfmt', 'rustfmt-nightly' } },
-
-        -- GO
         go = { 'gofmt', 'gofumpt', stop_after_first = true },
+        -- markdown = { 'prettier', 'markdownlint-cli2', 'markdown-toc' },
+        markdown = { 'prettier', 'markdownlint-cli2' },
+        ['markdown.mdx'] = { 'prettier', 'markdownlint-cli2' },
 
-        -- md
-        markdown = { 'prettier', 'prettierd', stop_after_first = true },
-
-        -- idk but prettierd dont respect .prettierrc
-        -- js, ts, jsx and tsx
+        -- INFO: idk but prettierd dont respect .prettierrc, so I use prettier
+        -- You can use 'stop_after_first' to run the first available formatter from the list
         javascript = { 'prettier', 'prettierd', stop_after_first = true },
         typescript = { 'prettier', 'prettierd', stop_after_first = true },
         javascriptreact = { 'prettier', 'prettierd', stop_after_first = true },
         typescriptreact = { 'prettier', 'prettierd', stop_after_first = true },
-
-        -- astro
+        css = { 'prettier', 'prettierd', stop_after_first = true },
         astro = { 'prettier', 'prettierd', stop_after_first = true },
+
+        c = { 'clang-format' },
+        sh = { 'shfmt' },
       },
     },
   },

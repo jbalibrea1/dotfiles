@@ -76,11 +76,6 @@ map('n', '<C-Down>', '<cmd>resize -2<cr>', { desc = 'Decrease Window Height' })
 map('n', '<C-Left>', '<cmd>vertical resize -2<cr>', { desc = 'Decrease Window Width' })
 map('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase Window Width' })
 
--- Open themes available
--- map('n', '<leader>tc', function()
---   require('telescope.builtin').colorscheme { enable_preview = true }
--- end, { desc = 'Theme Change' })
-
 -- windows
 map('n', '<leader>-', '<C-W>s', { desc = 'Split Window Below', remap = true })
 map('n', '<leader>|', '<C-W>v', { desc = 'Split Window Right', remap = true })
