@@ -14,6 +14,13 @@ return {
       mode = 'n',
       desc = 'Markdown Preview',
     },
+    {
+      '<leader>m',
+      function()
+        require('which-key').show { global = false }
+      end,
+      desc = 'Markdown',
+    },
   },
   ft = { 'markdown' },
   -- config = function()

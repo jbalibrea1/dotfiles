@@ -1,4 +1,5 @@
 local theme = require 'jbalibrea.core.theme'
+local transparent = true
 
 return {
   {
@@ -10,10 +11,10 @@ return {
   {
     'folke/tokyonight.nvim',
     priority = 1000,
-    lazy = false,
+    lazy = true,
     opts = {
       style = 'moon',
-      transparent = true,
+      transparent = transparent,
       styles = {
         comments = { italic = true },
         keywords = { italic = true },
@@ -21,10 +22,10 @@ return {
         floats = 'transparent',
       },
     },
-    config = function(_, opts)
-      require('tokyonight').setup(opts)
-      theme.set 'tokyonight'
-    end,
+    -- config = function(_, opts)
+    --   require('tokyonight').setup(opts)
+    --   theme.set 'tokyonight'
+    -- end,
   },
 
   {
@@ -33,10 +34,10 @@ return {
     priority = 1000,
     lazy = true,
     opts = {
-      disable_background = true,
+      disable_background = transparent,
       styles = {
         italic = false,
-        transparency = true,
+        transparency = transparent,
       },
     },
 
@@ -49,11 +50,11 @@ return {
   {
     'catppuccin/nvim',
     name = 'catppuccin',
-    lazy = true,
+    lazy = false,
     priority = 1000,
     opts = {
       flavour = 'mocha',
-      transparent_background = true,
+      transparent_background = transparent,
       integrations = {
         aerial = true,
         alpha = true,
@@ -100,10 +101,22 @@ return {
       --   },
       -- },
     },
-    -- config = function(_, opts)
-    --   require('catppuccin').setup(opts)
-    --   theme.set 'catppuccin'
-    -- end,
+    config = function(_, opts)
+      require('catppuccin').setup(opts)
+      theme.set 'catppuccin'
+    end,
+  },
+
+  {
+    'projekt0n/github-nvim-theme',
+    name = 'github-theme',
+    lazy = true,
+    priority = 1000,
+    config = function()
+      require('github-theme').setup {
+        -- ...
+      }
+    end,
   },
 
   {

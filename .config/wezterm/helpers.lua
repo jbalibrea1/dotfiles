@@ -13,15 +13,15 @@ local module = {}
 -- function that accepts the config object, like this:
 function module.apply_to_config(config)
   -- theme
-  config.color_scheme = 'Tokyo Night Moon' -- Catppuccin Mocha
+  config.color_scheme = 'Tokyo Night Moon' -- Catppuccin Mocha, Tokyo Night Moon, GitHub Dark
 
   -- font
-  config.font = wezterm.font { family = 'Fira Code' } -- JetBrains Mono, Iosevka, Fira Code, Hack
-  config.font_size = 12.0
+  config.font = wezterm.font { family = 'Hack' } -- JetBrains Mono, Iosevka, Fira Code, Hack
+  config.font_size = 14.0
 
   -- UI
-  config.enable_tab_bar = true
-  config.window_background_opacity = 0.9 -- opacity as you please
+  -- config.enable_tab_bar = true
+  -- config.window_background_opacity = 0.9 -- opacity as you please
   config.kde_window_background_blur = true
   config.hide_tab_bar_if_only_one_tab = true
   config.use_fancy_tab_bar = false

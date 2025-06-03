@@ -16,6 +16,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Check if we need to reload the file when it changed
+vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
+  group = augroup 'checktime',
+  callback = function()
+    if vim.o.buftype ~= 'nofile' then
+      vim.cmd 'checktime'
+    end
+  end,
+})
+
 -- resize splits if window got resized
 vim.api.nvim_create_autocmd({ 'VimResized' }, {
   group = augroup 'resize-splits',
@@ -116,5 +126,15 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     end
     local file = vim.uv.fs_realpath(event.match) or event.match
     vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
+  end,
+})
+
+vim.api.nvim_create_autocmd('BufWritePost', {
+  pattern = '*.{c,cpp,h,hpp}', -- Solo para archivos C/C++
+  callback = function()
+    vim.schedule(function() -- Usamos schedule para evitar problemas de sincronización
+      vim.cmd 'e!' -- Recarga el archivo forzosamente
+      vim.notify('Archivo C recargado (clangd sync)', vim.log.levels.INFO) -- Opcional: notificación
+    end)
   end,
 })

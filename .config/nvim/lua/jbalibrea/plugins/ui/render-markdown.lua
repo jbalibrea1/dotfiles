@@ -1,43 +1,27 @@
+-- TODO: ECHAR VISTAZO COMMENTS ETC
 return {
   'MeanderingProgrammer/render-markdown.nvim',
   event = 'VeryLazy',
+  ft = { 'markdown', 'norg', 'rmd', 'org', 'codecompanion' },
   dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
   -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
   -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
   init = function()
     -- Define color variables
-    -- local color1_bg = '#987afb'
-    -- local color2_bg = '#37f499'
-    -- local color3_bg = '#04d1f9'
-    -- local color4_bg = '#fca6ff'
-    -- local color5_bg = '#9ad900'
-    -- local color6_bg = '#05ff23'
-    --
-    -- local color_fg1 = '#2d244b'
-    -- local color_fg2 = '#10492d'
-    -- local color_fg3 = '#013e4a'
-    -- local color_fg4 = '#4b314c'
-    -- local color_fg5 = '#1e2b00'
-    -- local color_fg6 = '#2d1c08'
-    --
-    -- local color_fg = '#1e1e2e'
-    -- local colorInline_bg = '#a6adc8'
-    -- Background highlights (más suaves y balanceadas)
-    -- local color1_bg = '#7aa2f7' -- Azul neón suave
     local color1_bg = '#987afb'
-    local color2_bg = '#94e2d5' -- Verde menta
-    local color3_bg = '#89b4fa' -- Azul pastel
-    local color4_bg = '#f5c2e7' -- Rosa suave
-    local color5_bg = '#a6e3a1' -- Verde claro
-    local color6_bg = '#f9e2af' -- Amarillo crema
+    local color2_bg = '#5fd3c0'
+    local color3_bg = '#89b4fa'
+    local color4_bg = '#f5c2e7'
+    local color5_bg = '#a6e3a1'
+    local color6_bg = '#f9e2af'
 
     -- Foreground contrasts (oscuros complementarios)
-    local color_fg1 = '#1e1e2e' -- Tono oscuro base
-    local color_fg2 = '#1a2b25' -- Verde profundo
-    local color_fg3 = '#112638' -- Azul petróleo
-    local color_fg4 = '#2a1e2f' -- Violeta oscuro
-    local color_fg5 = '#1c2713' -- Verde musgo oscuro
-    local color_fg6 = '#2e201a' -- Marrón tostado
+    local color_fg1 = '#1e1e2e'
+    local color_fg2 = '#1a2b25'
+    local color_fg3 = '#112638'
+    local color_fg4 = '#2a1e2f'
+    local color_fg5 = '#1c2713'
+    local color_fg6 = '#2e201a'
 
     -- Global foreground (base de texto)
     local color_fg = '#cdd6f4' -- Gris claro (base para contraste)
@@ -69,7 +53,7 @@ return {
   opts = {
     code = {
       sign = false,
-      width = 'full',
+      width = 'block',
       right_pad = 1,
     },
     bullet = {
@@ -117,6 +101,7 @@ return {
     },
     heading = {
       sign = false,
+      width = 'block',
       -- icons = {},
       icons = { '󰎤 ', '󰎧 ', '󰎪 ', '󰎭 ', '󰎱 ', '󰎳 ' },
       backgrounds = {
@@ -127,14 +112,14 @@ return {
         'Headline5Bg',
         'Headline6Bg',
       },
-      foregrounds = {
-        'Headline1Fg',
-        'Headline2Fg',
-        'Headline3Fg',
-        'Headline4Fg',
-        'Headline5Fg',
-        'Headline6Fg',
-      },
+      -- foregrounds = {
+      --   'Headline1Fg',
+      --   'Headline2Fg',
+      --   'Headline3Fg',
+      --   'Headline4Fg',
+      --   'Headline5Fg',
+      --   'Headline6Fg',
+      -- },
     },
   },
   config = function(_, opts)

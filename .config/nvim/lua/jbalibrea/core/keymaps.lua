@@ -36,7 +36,7 @@ map('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 map('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Fast save
-map('n', '<leader>w', '<cmd>w<cr><esc>', { desc = 'Save file' })
+map('n', '<leader>w', '<cmd>w<cr><esc>', { desc = 'Write file' })
 
 -- Personal keymaps
 map('n', '<C-d>', '<C-d>zz')

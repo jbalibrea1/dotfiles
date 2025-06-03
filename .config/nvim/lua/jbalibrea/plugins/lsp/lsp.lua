@@ -274,7 +274,35 @@ return {
             },
           },
         },
-        -- clangd = {},
+        clangd = {
+          cmd = {
+            'clangd',
+            '--background-index',
+            '--clang-tidy',
+            '--header-insertion=iwyu',
+            '--completion-style=detailed',
+            '--function-arg-placeholders',
+            '--fallback-style=llvm',
+          },
+          filetypes = { 'c', 'cpp', 'objc', 'objcpp' },
+          root_dir = function(fname)
+            return require('lspconfig.util').root_pattern('Makefile', 'configure.ac', 'compile_commands.json', '.git')(
+              fname
+            ) or vim.fn.getcwd()
+          end,
+          -- Opcional: Añade keymaps específicos para clangd
+          on_attach = function(client, bufnr)
+            vim.keymap.set(
+              'n',
+              '<leader>ch',
+              '<cmd>ClangdSwitchSourceHeader<cr>',
+              { buffer = bufnr, desc = 'Switch Source/Header' }
+            )
+          end,
+          capabilities = { -- Asegúrate de que las capabilities se hereden correctamente
+            offsetEncoding = { 'utf-16' },
+          },
+        },
         gopls = {
           settings = {
             gopls = {
@@ -375,6 +403,10 @@ return {
         automatic_installation = false,
         handlers = {
           function(server_name)
+            print('Configurando: ' .. server_name) -- Depuración
+            if server_name == 'clangd' then
+              print(vim.inspect(servers.clangd)) -- Verifica la configuración
+            end
             local server = servers[server_name] or {}
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling

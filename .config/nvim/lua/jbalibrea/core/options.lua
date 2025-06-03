@@ -12,7 +12,7 @@ vim.g.have_nerd_font = true
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
---
+
 local opt = vim.opt
 
 -- Make line numbers default
@@ -71,10 +71,10 @@ opt.cursorline = false
 opt.scrolloff = 10
 
 -- Fold settings
+opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 opt.foldmethod = 'expr'
-opt.foldexpr = 'nvim_treesitter#foldexpr()'
 opt.foldlevel = 99 -- Using ufo provider need a large value
-opt.foldtext = ''
+opt.foldtext = '' -- remove text in fold line
 opt.fillchars = {
   foldopen = '',
   foldclose = '',
@@ -89,6 +89,7 @@ opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
 
 -- Smooth scrolling
 opt.smoothscroll = true
+
 -- Tab settings
 opt.tabstop = 4
 opt.softtabstop = 4
@@ -97,6 +98,7 @@ opt.expandtab = true -- Use spaces instead of tabs
 opt.smartindent = true
 opt.colorcolumn = '80'
 -- opt.wrap = false
+-- opt.textwidth = 80 -- Set global text width
 
 -- Set highlight on search
 opt.hlsearch = true
