@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 return {
   'lukas-reineke/indent-blankline.nvim',
   main = 'ibl',
@@ -25,6 +27,8 @@ return {
       vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = '#56B6C2' })
     end)
 
+    ---@module 'ibl'
+    ---@type ibl.config
     require('ibl').setup {
       indent = { highlight = activate_colors and highlight or nil },
       scope = { enabled = false }, -- false if mini.indentscope enable

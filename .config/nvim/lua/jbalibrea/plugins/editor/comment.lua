@@ -9,6 +9,8 @@
 
 -- "gc" to comment visual regions/lines
 -- return { 'numToStr/Comment.nvim', opts = {} }
+---@module 'lazy'
+---@type LazySpec[]
 return {
   {
     'JoosepAlviste/nvim-ts-context-commentstring',

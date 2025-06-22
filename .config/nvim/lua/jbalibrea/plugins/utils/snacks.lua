@@ -1,8 +1,9 @@
+---@module 'lazy'
+---@type LazySpec
 return {
-  {
-    'folke/snacks.nvim',
-    priority = 1000,
-    lazy = false,
+  'folke/snacks.nvim',
+  priority = 1000,
+  lazy = false,
     ---@type snacks.Config
 -- stylua: ignore
     opts = {
@@ -76,6 +77,18 @@ return {
       { "<leader>sR", function() Snacks.picker.resume() end, desc = "Resume" },
       { "<leader>su", function() Snacks.picker.undo() end, desc = "Undo History" },
       { "<leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
+      -- lsp
+      { "K", function() vim.lsp.buf.hover() end, desc = "Hover Documentation" },
+      { "gK", function() vim.lsp.buf.signature_help() end, desc = "Signature Documentation" },
+      { "<leader>cr", function() vim.lsp.buf.rename() end, desc = "Rename" },
+      { "<leader>ca", function() vim.lsp.buf.code_action() end, desc = "Code Action", mode = { "n", "v" } },
+      { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
+      { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
+      { "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
+      { "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
+      { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
+      { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
+      { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
      -- Other
       { "<leader>z",  function() Snacks.zen() end, desc = "Toggle Zen Mode" },
       { "<leader>Z",  function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
@@ -84,28 +97,24 @@ return {
       { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
     },
 
-    init = function()
-      vim.api.nvim_create_autocmd('User', {
-        pattern = 'VeryLazy',
-        callback = function()
-          Snacks.toggle.zen():map '<leader>uz'
-          Snacks.toggle.zoom():map '<leader>uZ'
-          Snacks.toggle.treesitter():map '<leader>uT'
-          Snacks.toggle
-            .option('showtabline', { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = 'Tabline' })
-            :map '<leader>uA'
-          Snacks.toggle
-            .option(
-              'conceallevel',
-              { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = 'Conceal Level' }
-            )
-            :map '<leader>uc'
-          Snacks.toggle.animate():map '<leader>ua'
-          Snacks.toggle.option('wrap', { name = 'Wrap' }):map '<leader>uw'
-          Snacks.toggle.inlay_hints():map '<leader>uh'
-          Snacks.toggle.dim():map '<leader>ud'
-        end,
-      })
-    end,
-  },
+  init = function()
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'VeryLazy',
+      callback = function()
+        Snacks.toggle.zen():map '<leader>uz'
+        Snacks.toggle.zoom():map '<leader>uZ'
+        Snacks.toggle.treesitter():map '<leader>uT'
+        Snacks.toggle
+          .option('showtabline', { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = 'Tabline' })
+          :map '<leader>uA'
+        Snacks.toggle
+          .option('conceallevel', { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = 'Conceal Level' })
+          :map '<leader>uc'
+        Snacks.toggle.animate():map '<leader>ua'
+        Snacks.toggle.option('wrap', { name = 'Wrap' }):map '<leader>uw'
+        Snacks.toggle.inlay_hints():map '<leader>uh'
+        Snacks.toggle.dim():map '<leader>ud'
+      end,
+    })
+  end,
 }

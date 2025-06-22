@@ -3,11 +3,16 @@
 --    require('gitsigns').setup({ ... })
 --
 -- See `:help gitsigns` to understand what the configuration keys do
+---@module 'lazy'
+---@type LazySpec
 return { -- Adds git related signs to the gutter, as well as utilities for managing changes
   'lewis6991/gitsigns.nvim',
   event = 'VeryLazy',
+  ---@module 'gitsigns'
+  ---@type Gitsigns.Config
+  ---@diagnostic disable: missing-fields
   opts = {
-    current_line_blame = true,
+    current_line_blame = false,
     signs = {
       add = { text = '+' },
       change = { text = '~' },

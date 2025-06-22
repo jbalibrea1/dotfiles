@@ -1,3 +1,4 @@
+-- TODO: meter el autocmd en otro lado
 -- Enable mdx files like markdown
 vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
   pattern = { '*.mdx' },
@@ -6,7 +7,8 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
     vim.api.nvim_set_option_value('filetype', 'markdown', { buf = buf })
   end,
 })
-
+---@module 'lazy'
+---@type LazySpec[]
 return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -15,6 +17,9 @@ return {
     build = ':TSUpdate',
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+    ---@module 'nvim-treesitter.configs'
+    ---@type TSConfig
+    ---@diagnostic disable-next-line: missing-fields
     opts = {
       ensure_installed = {
         'bash',
@@ -85,6 +90,9 @@ return {
     config = function()
       -- If treesitter is already loaded, we need to run config again for textobjects
       if package.loaded['nvim-treesitter'] then
+        ---@module 'nvim-treesitter.configs'
+        ---@type TSConfig
+        ---@diagnostic disable-next-line: missing-fields
         require('nvim-treesitter.configs').setup {
           textobjects = {
             move = {

@@ -68,10 +68,7 @@ if [ -d "$FNM_PATH" ]; then
 fi
 
 # kitty ssh
-# alias s="kitten ssh"
-
-#export DENO_INSTALL="/home/jbalibrea/.deno"
-#export PATH="$DENO_INSTALL/bin:$PATH"
+alias s="kitten ssh"
 
 # alias for dotfiles repo
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
@@ -84,12 +81,11 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-# #go bin
-# export PATH=$PATH:/home/jbalibrea/go/bin/
-# export PATH="$PATH:/home/jbalibrea/.local/bin"
-
 # export EDITOR=nvim # wsl2
 
 PATH=~/.console-ninja/.bin:$PATH
 
 eval "$(starship init zsh)"
+
+# change locale to UTF-8
+export LANG=en_US.UTF-8 #es_ES.UTF-8

@@ -1,8 +1,12 @@
 ---@diagnostic disable: missing-parameter, missing-fields
+---@module 'lazy'
+---@type LazySpec
 return {
   'folke/trouble.nvim',
   event = 'VeryLazy',
   cmd = { 'Trouble' },
+  ---@module 'trouble'
+  ---@type trouble.Config
   opts = {
     modes = {
       lsp = {

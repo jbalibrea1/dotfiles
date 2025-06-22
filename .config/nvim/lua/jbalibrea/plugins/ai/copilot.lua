@@ -1,8 +1,13 @@
+---@diagnostic disable: missing-fields
+---@module 'lazy'
+---@type LazySpec
 return {
   {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
     event = 'InsertEnter',
+    ---@module 'copilot'
+    ---@type CopilotConfig
     opts = {
       suggestion = { enabled = false, auto_trigger = false },
       panel = { enabled = false },
@@ -19,7 +24,7 @@ return {
   -- copilot integration with cmp
   {
     'saghen/blink.cmp',
-    event = 'VimEnter',
+    event = 'InsertEnter',
     version = '1.*',
     dependencies = { 'giuxtaposition/blink-cmp-copilot' },
     --- @module 'blink.cmp'

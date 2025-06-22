@@ -1,4 +1,4 @@
-# ✨ My Personal Dotfiles ✨
+# ☕ My Dotfiles
 
 ![nvim](https://jbalibrea.dev/img/dotfiles/nvim1.png)
 
@@ -8,31 +8,37 @@
 
 ![terminal](https://jbalibrea.dev/img/dotfiles/terminal.png)
 
-## 📚 Table of contents
-
-<!--toc:start-->
-
-- [✨ My Personal Dotfiles ✨](#my-personal-dotfiles)
-  - [📚 Table of contents](#📚-table-of-contents)
-  - [🔧 Configs](#🔧-configs)
-  - [📝 Neovim setup](#📝-neovim-setup)
-    - [Requirements](#requirements)
-  - [Install Neovim](#install-neovim)
-    - [Linux](#linux)
-    - [Windows](#windows)
-  - [💾 How to save dotfiles in a git repository](#💾-how-to-save-dotfiles-in-a-git-repository)
-  - [Starting from scratch](#starting-from-scratch) - [related material](#related-material)
-  - [Installing your dotfiles onto a new system (or migrate to this setup)](#installing-your-dotfiles-onto-a-new-system-or-migrate-to-this-setup)
-  <!--toc:end-->
-
 ## 🔧 Configs
 
-- [Kitty](https://sw.kovidgoyal.net/kitty/) config
-- [WezTerm](https://wezterm.org) config
-- [Oh My Zsh](https://ohmyz.sh/) config
-- [Starship](https://starship.rs/) config
-- [Tmux](https://github.com/tmux/tmux) config
-- [Neovim](https://neovim.io/) config
+- [Kitty](https://sw.kovidgoyal.net/kitty/)
+- [WezTerm](https://wezterm.org)
+- [Oh My Zsh](https://ohmyz.sh/)
+- [Starship](https://starship.rs/)
+- [Tmux](https://github.com/tmux/tmux)
+- [Neovim](https://neovim.io/)
+
+## Terminal setup
+
+```bash
+# arch
+pacman -S --noconfirm --needed kitty zsh tmux starship
+# ubuntu
+sudo apt install -y kitty zsh tmux starship
+
+# oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# oh-my-zsh plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-completions $ZSH_CUSTOM/plugins/zsh-completions
+git clone https://github.com/zsh-users/zsh-history-substring-search $ZSH_CUSTOM/plugins/zsh-history-substring-search
+```
+
+For wezterm installation, you can follow the [wezterm installation guide](https://wezterm.org/install.html). I do the compilation from source, but you can also use the precompiled binaries.
+
+> [!INFO]
+> terminal setup progress..
 
 ## 📝 Neovim setup
 
@@ -54,6 +60,7 @@
 
 ```bash
 sudo pacman -S --noconfirm --needed gcc make git ripgrep fd unzip neovim
+sudo pacman -S ttf-fira-code ttf-jetbrains-mono ttf-iosveka-nerd ttf-maple ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono
 ```
 
 </details>

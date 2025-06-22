@@ -1,6 +1,8 @@
 local theme = require 'jbalibrea.core.theme'
-local transparent = true
+local transparent = false
 
+---@module 'lazy'
+---@type LazySpec[]
 return {
   {
     'rebelot/kanagawa.nvim',
@@ -40,7 +42,6 @@ return {
         transparency = transparent,
       },
     },
-
     -- config = function(_, opts)
     --   require('rose-pine').setup(opts)
     --   theme.set 'rose-pine'
@@ -123,5 +124,27 @@ return {
     'slugbyte/lackluster.nvim',
     lazy = true,
     priority = 1000,
+    config = function() end,
+  },
+
+  {
+    'webhooked/kanso.nvim',
+    lazy = true,
+    priority = 1000,
+    -- config = function(_, opts)
+    --   require('kanso').setup(opts)
+    --   theme.set 'kanso'
+    -- end,
+  },
+
+  {
+    'sainnhe/sonokai',
+    lazy = true,
+    priority = 1000,
+    config = function()
+      -- Optionally configure and load the colorscheme
+      -- directly inside the plugin declaration.
+      -- vim.g.sonokai_enable_italic = true
+    end,
   },
 }

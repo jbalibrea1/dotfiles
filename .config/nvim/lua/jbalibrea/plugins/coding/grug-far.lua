@@ -1,6 +1,11 @@
+---@module 'lazy'
+---@type LazySpec
 return {
   'MagicDuck/grug-far.nvim',
   event = 'VeryLazy',
+  ---@module 'grug-far'
+  ---@type grug.far.Options
+  ---@diagnostic disable-next-line: missing-fields
   opts = { headerMaxWidth = 80 },
   cmd = 'GrugFar',
   keys = {

@@ -1,7 +1,12 @@
+---@module 'lazy'
+---@type LazySpec
 return {
   'folke/which-key.nvim',
   -- event = 'VimEnter', -- Sets the loading event to 'VimEnter'
   event = 'VeryLazy',
+  ---@module 'which-key'
+  ---@type wk.Opts
+  ---@diagnostic disable-next-line: missing-fields
   opts = {
     preset = 'helix',
     -- delay between pressing a key and opening which-key (milliseconds)

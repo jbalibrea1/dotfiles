@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec[]
 return {
   {
     'epwalsh/obsidian.nvim',
@@ -60,7 +62,7 @@ return {
 
   {
     'saghen/blink.cmp',
-    event = 'VimEnter',
+    event = 'InsertEnter',
     version = '1.*',
     ft = 'markdown',
     dependencies = {
