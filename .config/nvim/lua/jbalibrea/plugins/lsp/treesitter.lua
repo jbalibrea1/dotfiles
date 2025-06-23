@@ -1,12 +1,3 @@
--- TODO: meter el autocmd en otro lado
--- Enable mdx files like markdown
-vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
-  pattern = { '*.mdx' },
-  callback = function()
-    local buf = vim.api.nvim_get_current_buf()
-    vim.api.nvim_set_option_value('filetype', 'markdown', { buf = buf })
-  end,
-})
 ---@module 'lazy'
 ---@type LazySpec[]
 return {

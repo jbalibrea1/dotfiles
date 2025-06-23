@@ -129,6 +129,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
   end,
 })
 
+-- INFO: test if this works with clangd
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = '*.{c,cpp,h,hpp}', -- Solo para archivos C/C++
   callback = function()
@@ -136,5 +137,14 @@ vim.api.nvim_create_autocmd('BufWritePost', {
       vim.cmd 'e!' -- Recarga el archivo forzosamente
       vim.notify('Archivo C recargado (clangd sync)', vim.log.levels.INFO) -- Opcional: notificación
     end)
+  end,
+})
+
+-- Enable mdx files like markdown
+vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
+  pattern = { '*.mdx' },
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
+    vim.api.nvim_set_option_value('filetype', 'markdown', { buf = buf })
   end,
 })
