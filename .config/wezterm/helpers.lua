@@ -16,12 +16,33 @@ function module.apply_to_config(config)
   config.color_scheme = 'Tokyo Night Moon' -- Catppuccin Mocha, Tokyo Night Moon, GitHub Dark
 
   -- font
-  config.font = wezterm.font { family = 'Hack' } -- JetBrains Mono, Iosevka, Fira Code, Hack
-  config.font_size = 14.0
-
+  -- config.font = wezterm.font { family = 'Hack' } -- JetBrains Mono, Iosevka, Fira Code, Hack
+  -- Fonts
+  config.font_size = 12.0
+  config.font = wezterm.font { family = 'Fira Code' }
+  config.bold_brightens_ansi_colors = true
+  config.font_rules = {
+    {
+      intensity = 'Bold',
+      italic = true,
+      font = wezterm.font { family = 'Maple Mono', weight = 'Bold', style = 'Italic' },
+    },
+    {
+      italic = true,
+      intensity = 'Half',
+      font = wezterm.font { family = 'Maple Mono', weight = 'DemiBold', style = 'Italic' },
+    },
+    {
+      italic = true,
+      intensity = 'Normal',
+      font = wezterm.font { family = 'Maple Mono', style = 'Italic' },
+    },
+  }
   -- UI
   -- config.enable_tab_bar = true
-  -- config.window_background_opacity = 0.9 -- opacity as you please
+  config.enable_wayland = true
+  config.webgpu_power_preference = 'HighPerformance'
+  config.window_background_opacity = 0.9 -- opacity as you please
   config.kde_window_background_blur = true
   config.hide_tab_bar_if_only_one_tab = true
   config.use_fancy_tab_bar = false
@@ -31,12 +52,7 @@ function module.apply_to_config(config)
   config.default_cursor_style = 'BlinkingBar'
   config.force_reverse_video_cursor = true
   -- config.window_decorations = 'RESIZE'
-  config.window_padding = {
-    left = 0,
-    right = 0,
-    top = 0,
-    bottom = 0,
-  }
+  config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 
   config.underline_thickness = 3
   config.cursor_thickness = 3
